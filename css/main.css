@@ -1,0 +1,118 @@
+/*Logout*/
+
+
+/* Remove the navbar's default margin-bottom and rounded borders */
+
+.carousel {
+    margin-top: 40px;
+}
+
+.navbar {
+    margin-bottom: 20;
+    border-radius: 0;
+}
+
+.navbar-inverse .navbar-nav>.active>a,
+.navbar-inverse .navbar-nav>.active>a:focus,
+.navbar-inverse .navbar-nav>.active>a:hover {
+    color: #04b6c2;
+}
+
+
+/* Macht aktiven Tab und :hover Tab in der Navigation grün */
+
+.navbar-inverse .navbar-nav>li>a:focus,
+.navbar-inverse .navbar-nav>li>a:hover {
+    color: #04b6c2;
+}
+
+
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+
+.row.content {
+    height: 100px
+}
+
+
+/* Set gray background color and 100% height */
+
+.sidenav {
+    padding-top: 20px;
+    background-color: #f1f1f1;
+    height: 100%;
+}
+
+
+/* Set black background color, white text and some padding */
+
+footer {
+    position: relative;
+    bottom: 0px;
+    margin-top: 30px;
+    width: 100%;
+    height: auto;
+    background-color: #555;
+    color: white;
+    padding: 15px;
+}
+
+@media(max-width:767px) {
+    footer {
+        position: relative;
+    }
+}
+
+.btn-success {
+    background-color: #04b6c2;
+    border-color: #04b6c2;
+}
+
+.navbar-brand {
+    background-color: #04b6c2;
+    background-color: inherit;
+}
+
+.navbar-brand>img {
+    height: 100px;
+    line-height: 100px;
+    margin-top: 0px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+@media(min-width:767px) {
+    .navbar-brand,
+    .navbar-nav li a {
+        height: 100px;
+        line-height: 100px;
+        padding-top: 0;
+    }
+}
+
+.navbar-toggle {
+    line-height: 100px;
+    height: 100px;
+}
+
+body {
+    font-size: 16px;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: 300;
+}
+
+#container {
+    margin-top: 20px;
+}
+
+
+/* On small screens, set height to 'auto' for sidenav and grid */
+
+@media screen and (max-width: 767px) {
+    .sidenav {
+        height: auto;
+        padding: 15px;
+    }
+    .row.content {
+        height: auto;
+    }
+}

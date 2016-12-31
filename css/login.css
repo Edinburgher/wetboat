@@ -1,0 +1,24 @@
+.form-signin {
+    max-width: 400px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.form-signin .form-control {
+    margin-bottom: 5px;
+}
+
+footer {
+    position: absolute;
+}
+
+#txtLogin {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+@media(max-width:767px) {
+    footer {
+        position: relative;
+    }
+}

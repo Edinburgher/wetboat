@@ -43,8 +43,8 @@ $(document).ready(function () {
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 console.log(thrownError);
-                $("#errorMessage").fadeIn().removeClass('hidden');
-                $("#errorMessage > p").text(thrownError);
+                $("#alertUserForm").fadeIn().removeClass('hidden');
+                $("#alertUserForm > p").text(thrownError);
             }
         });
     });
@@ -59,16 +59,41 @@ $(document).ready(function () {
             processData: false,
             success: function (data) {
                 $(".form-control").val('');
-                $("#errorMessage").fadeOut().addClass('hidden');
-                $("#errorMessage > p").text('');
+                $("#alertUserForm").fadeOut().addClass('hidden');
+                $("#alertUserForm > p").text('');
                 $.post("php/users/getUsers.php", function (data) {
                     $("#userTable").html(data);
                 });
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 $(".form-control").val('');
-                $("#errorMessage").fadeIn().removeClass('hidden');
-                $("#errorMessage > p").text(thrownError);
+                $("#alertUserForm").fadeIn().removeClass('hidden');
+                $("#alertUserForm > p").text(thrownError);
+            }
+        });
+    });
+
+    $('#changePwdForm').submit(function () {
+        event.preventDefault();
+        var f = $("#changePwdForm");
+        $.ajax({
+            type: "POST",
+            url: "php/users/changePassword.php",
+            data: f.serialize(),
+            processData: false,
+            success: function (data) {
+                $(".form-control").val('');
+                $("#alertChangePwdForm").fadeIn(300).removeClass('hidden alert-danger').addClass('alert-success');
+                $("#alertChangePwdForm > p").text(data);
+                setTimeout(function () {
+                    $("#alertChangePwdForm").fadeOut(300).addClass('hidden').removeClass('alert-success');
+                    $("#alertChangePwdForm > p").text('');
+                }, 5000);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                $(".form-control").val('');
+                $("#alertChangePwdForm").fadeIn().removeClass('hidden').addClass('alert-danger');
+                $("#alertChangePwdForm > p").text(thrownError);
             }
         });
     });

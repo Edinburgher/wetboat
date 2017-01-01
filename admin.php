@@ -40,8 +40,8 @@ if(!isset($_SESSION['username'])){
           <div>
             <h3>Delay Einstellungen</h3>
           </div>
+          <span>Delay [in Sekunden]:</span>
           <form id="delayForm" class="form-inline" method="POST">
-            <span>Delay [in Sekunden]</span>
             <input type="number" name="delay" class="form-control" min="1" max="1000" placeholder="5" id="txtDelay" required/>
             <input type="submit" class="btn btn-default" />
             <span id="divSubmit"></span>
@@ -54,13 +54,23 @@ if(!isset($_SESSION['username'])){
           <div>
             <h3>Benutzer Einstellungen</h3>
           </div>
-          <div class="alert alert-danger hidden" id="errorMessage">
+          <div class="alert alert-danger hidden" id="alertUserForm">
             <p></p>
           </div>
+          <span>Neuen User anlegen:</span>
           <form id="userForm" class="form-inline" method="POST">
-            <span>Neuen User anlegen: </span>
             <input type="text" name="username" class="form-control input-md" placeholder="Benutzername" required>
             <input type="password" name="password" class="form-control input-md" placeholder="Passwort" required>
+            <input type="submit" class="btn btn-default" />
+          </form>
+          <br>
+          <div class="alert hidden" id="alertChangePwdForm">
+            <p></p>
+          </div>
+          <span>Passwort ändern:</span>
+          <form id="changePwdForm" class="form-inline" method="POST">
+            <input type="password" name="oldPassword" class="form-control input-md" placeholder="Altes Passwort" required>
+            <input type="password" name="newPassword" class="form-control input-md" placeholder="Neues Passwort" required>
             <input type="submit" class="btn btn-default" />
           </form>
 

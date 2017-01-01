@@ -51,7 +51,6 @@ $(document).ready(function () {
     });
 
     $('#userForm').submit(function () {
-
         event.preventDefault();
         var f = $("#userForm");
         $.ajax({

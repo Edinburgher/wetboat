@@ -1,4 +1,4 @@
 *.mp4
-*.php
-/.vscode
-/.idea
+*.csv
+.*
+config.php

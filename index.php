@@ -6,7 +6,7 @@ session_start();
 
   <head>
     <?php
-      include "php/head.php";
+      include_once "php/head.php";
     ?>
   
     <script src="https://code.highcharts.com/stock/highstock.js"></script>
@@ -20,7 +20,7 @@ session_start();
 
   <body>
     <?php
-      include "php/nav.php";
+      include_once "php/nav.php";
     ?>
     <div class="container-fluid">
         <div class="row content">
@@ -39,10 +39,12 @@ session_start();
         </div>
     </div>
     <?php
-      include "php/footer.php";
+      include_once "php/footer.php";
     ?>
     <script src="js/userMaps.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKiyusanWE3AYe4pMObUTGYhsnb45O2pI&callback=myMap&libraries=drawing"></script>
+    <?php
+      include_once "php/maps.php";
+    ?>
   </body>
 
 </html>

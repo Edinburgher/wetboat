@@ -1,8 +1,8 @@
 <?php
 session_start();
 ?>
-  <!DOCTYPE html>
-  <html lang="de">
+<!DOCTYPE html>
+<html lang="de">
 
   <head>
     <title>WETboat</title>
@@ -39,15 +39,15 @@ session_start();
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <?php
-if(isset($_SESSION['username'])){
-    echo "<script>window.location.href = './admin.php';</script>";
-    //alert('Sie sind bereits angemeldet.');
-    //sleep(4);
-    //header("Location: ./index.php");
-} else {
-    echo "<li class='active'><a href='./login.php' id='btnLogin'><span class='glyphicon glyphicon-log-in'></span> Anmelden</a></li>";
-}
-?>
+              if(isset($_SESSION['username'])){
+                  echo "<script>window.location.href = './admin.php';</script>";
+                  //alert('Sie sind bereits angemeldet.');
+                  //sleep(4);
+                  //header("Location: ./index.php");
+              } else {
+                  echo "<li class='active'><a href='./login.php' id='btnLogin'><span class='glyphicon glyphicon-log-in'></span> Anmelden</a></li>";
+              }
+            ?>
           </ul>
         </div>
       </div>
@@ -66,8 +66,8 @@ if(isset($_SESSION['username'])){
     </form>
 
     <?php
-include "php/footer.php";
-?>
+      include "php/footer.php";
+    ?>
   </body>
 
-  </html>
+</html>

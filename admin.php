@@ -1,13 +1,12 @@
 <?php
 session_start();
 if(!isset($_SESSION['username'])){
-    header("Location:login.php");
+  header("Location:login.php");
 }
-
 ?>
 
-  <!DOCTYPE html>
-  <html lang="de">
+<!DOCTYPE html>
+<html lang="de">
 
   <head>
     <title>WETboat</title>
@@ -44,17 +43,15 @@ if(!isset($_SESSION['username'])){
             <li><a href="#">Kontakt</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-
             <?php
-            if(isset($_SESSION['username'])){
-                echo "<li><a id='txtSession'>Herzlich Willkommen, ".$_SESSION['username']."!</a></li>";
-                echo "<li class='active'><a href='./admin.php' id='btnLogin'>Admin</a></li>";
-                echo "<li><a href='php/logout.php' id='btnLogin'><span class='glyphicon glyphicon-log-out'></span> Abmelden</a></li>";
-            } else {
-                echo "<li><a href='./login.php' id='btnLogin'><span class='glyphicon glyphicon-log-in'></span> Anmelden</a></li>";
-            }
+              if(isset($_SESSION['username'])){
+                  echo "<li><a id='txtSession'>Herzlich Willkommen, ".$_SESSION['username']."!</a></li>";
+                  echo "<li class='active'><a href='./admin.php' id='btnLogin'>Admin</a></li>";
+                  echo "<li><a href='php/logout.php' id='btnLogin'><span class='glyphicon glyphicon-log-out'></span> Abmelden</a></li>";
+              } else {
+                  echo "<li><a href='./login.php' id='btnLogin'><span class='glyphicon glyphicon-log-in'></span> Anmelden</a></li>";
+              }
             ?>
-
           </ul>
         </div>
       </div>
@@ -91,9 +88,9 @@ if(!isset($_SESSION['username'])){
           <div>
             <h3>Benutzer Einstellungen</h3>
           </div>
-        <div class="alert alert-danger hidden" id="errorMessage">
-          <p></p>
-        </div>
+          <div class="alert alert-danger hidden" id="errorMessage">
+            <p></p>
+          </div>
           <form id="userForm" class="form-inline" method="POST">
             <span>Neuen User anlegen: </span>
             <input type="text" name="username" class="form-control input-md" placeholder="Benutzername" required>
@@ -111,7 +108,7 @@ if(!isset($_SESSION['username'])){
     </div>
 
     <?php
-    include "php/footer.php";
+      include "php/footer.php";
     ?>
 
     <script src="js/adminMaps.js"></script>
@@ -120,4 +117,4 @@ if(!isset($_SESSION['username'])){
 
   </body>
 
-  </html>
+</html>

@@ -1,8 +1,8 @@
 <?php
 session_start();
 ?>
-  <!DOCTYPE html>
-  <html lang="de">
+<!DOCTYPE html>
+<html lang="de">
 
   <head>
     <title>WETboat</title>
@@ -36,13 +36,13 @@ session_start();
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <?php
-            if(isset($_SESSION['username'])){
-                echo "<li><a id='txtSession'>Herzlich Willkommen, ".$_SESSION['username']."!</a></li>";
-                echo "<li><a href='./admin.php' id='btnLogin'>Admin</a></li>";
-                echo "<li><a href='php/logout.php' id='btnLogin'><span class='glyphicon glyphicon-log-out'></span> Abmelden</a></li>";
-            } else {
-                echo "<li><a href='./login.php' id='btnLogin'><span class='glyphicon glyphicon-log-in'></span> Anmelden</a></li>";
-            }
+              if(isset($_SESSION['username'])){
+                  echo "<li><a id='txtSession'>Herzlich Willkommen, ".$_SESSION['username']."!</a></li>";
+                  echo "<li><a href='./admin.php' id='btnLogin'>Admin</a></li>";
+                  echo "<li><a href='php/logout.php' id='btnLogin'><span class='glyphicon glyphicon-log-out'></span> Abmelden</a></li>";
+              } else {
+                  echo "<li><a href='./login.php' id='btnLogin'><span class='glyphicon glyphicon-log-in'></span> Anmelden</a></li>";
+              }
             ?>
           </ul>
         </div>
@@ -61,8 +61,8 @@ session_start();
       </div>
     </div>
     <?php
-    include "php/footer.php";
+      include "php/footer.php";
     ?>
   </body>
 
-  </html>
+</html>

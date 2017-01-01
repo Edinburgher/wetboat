@@ -1,52 +1,52 @@
 <!DOCTYPE html>
 <html>
-<body>
+  <body>
 
-<div id="map" style="width:100%;height:500px"></div>
+  <div id="map" style="width:100%;height:500px"></div>
 
-<script>
+  <script>
 
-function myMap() {
-  var one= new google.maps.LatLng(47.787936, 13.036627);
-  var two = new google.maps.LatLng(47.787779, 13.037932);
-  var three = new google.maps.LatLng(47.787247, 13.038556);
-  var four= new google.maps.LatLng(47.786835, 13.038043);
-  var five = new google.maps.LatLng(47.787187, 13.036772);
-  var six = new google.maps.LatLng(47.787936, 13.036627);
+  function myMap() {
+    var one= new google.maps.LatLng(47.787936, 13.036627);
+    var two = new google.maps.LatLng(47.787779, 13.037932);
+    var three = new google.maps.LatLng(47.787247, 13.038556);
+    var four= new google.maps.LatLng(47.786835, 13.038043);
+    var five = new google.maps.LatLng(47.787187, 13.036772);
+    var six = new google.maps.LatLng(47.787936, 13.036627);
 
-  var mapCanvas = document.getElementById("map");
-  var mapOptions = {center: one, zoom: 15};
-  var map = new google.maps.Map(mapCanvas,mapOptions);
+    var mapCanvas = document.getElementById("map");
+    var mapOptions = {center: one, zoom: 15};
+    var map = new google.maps.Map(mapCanvas,mapOptions);
 
-  var flightPath = new google.maps.Polyline({
-    path: [one, two, three, four, five, six],
-    strokeColor: "#0000FF",
-    strokeOpacity: 0.8,
-    strokeWeight: 2
-  });
-  
-  var myMarker = new google.maps.LatLng(47.785994, 13.037930);
-  
-  var contentString = '<div id="content">'+
-      '<div id="siteNotice">'+
-      '</div>'+
-      '<h1 id="firstHeading" class="firstHeading">Position Boot</h1>';
+    var flightPath = new google.maps.Polyline({
+      path: [one, two, three, four, five, six],
+      strokeColor: "#0000FF",
+      strokeOpacity: 0.8,
+      strokeWeight: 2
+    });
+    
+    var myMarker = new google.maps.LatLng(47.785994, 13.037930);
+    
+    var contentString = '<div id="content">'+
+        '<div id="siteNotice">'+
+        '</div>'+
+        '<h1 id="firstHeading" class="firstHeading">Position Boot</h1>';
 
-  var infowindow = new google.maps.InfoWindow({
-    content: contentString
-  });
-  var marker = new google.maps.Marker({position:myMarker});
-  marker.addListener('click', function() {
-    infowindow.open(map, marker);
-  });
-  marker.setMap(map);
-  flightPath.setMap(map);
-}
-</script>
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+    var marker = new google.maps.Marker({position:myMarker});
+    marker.addListener('click', function() {
+      infowindow.open(map, marker);
+    });
+    marker.setMap(map);
+    flightPath.setMap(map);
+  }
+  </script>
 
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKiyusanWE3AYe4pMObUTGYhsnb45O2pI&callback=myMap"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKiyusanWE3AYe4pMObUTGYhsnb45O2pI&callback=myMap"></script>
 
-</body>
+  </body>
 </html>
 

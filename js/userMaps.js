@@ -33,7 +33,7 @@ function myMap() {
         var lastMeasurement = new Date(0);
         var boatMarker = new google.maps.Marker();
         var infowindow = new google.maps.InfoWindow();
-        //set newest boat location marker
+        //set newest boat location marker every $delayMS seconds
         getDelay(function (delayMS) {
             setInterval(function setNewestBoatMarker() {
                 $.ajax({

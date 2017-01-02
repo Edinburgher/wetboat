@@ -1,13 +1,5 @@
 /* Remove the navbar's default margin-bottom and rounded borders */
 
-form{
-    
-}
-
-.carousel {
-    margin-top: 40px;
-}
-
 .navbar {
     margin-bottom: 20;
     border-radius: 0;

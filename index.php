@@ -28,7 +28,7 @@ session_start();
             <img id="liveImage" src="img/0.jpg?t=" class="img-responsive" />
         </div>
         <div class="col-sm-7">
-            <div id="container" style="height: 400px; min-width: 310px"></div>
+            <div id="container"></div>
         </div>
         </div>
         <div class="row content">

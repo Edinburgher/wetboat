@@ -31,7 +31,7 @@ if(!isset($_SESSION['username'])){
           <a type="button" class="btn btn-info" id="btnEdit">Route bearbeiten</a>
           <a type="button" class="btn btn-success drawOption hidden" id="btnSave">Speichern</a>
           <a type="button" class="btn btn-danger drawOption hidden" id="btnCancel">Abbrechen</a>
-          <div id="map" style="width:100%;height:550px;margin-top:10px"></div>
+          <div id="map" style="width:100%;height:450px;margin-top:10px"></div>
         </div>
       </div>
       <div class="row content">
@@ -54,16 +54,6 @@ if(!isset($_SESSION['username'])){
           <div>
             <h3>Benutzer Einstellungen</h3>
           </div>
-          <div class="alert alert-danger hidden" id="alertUserForm">
-            <p></p>
-          </div>
-          <span>Neuen User anlegen:</span>
-          <form id="userForm" class="form-inline" method="POST">
-            <input type="text" name="username" class="form-control input-md" placeholder="Benutzername" required>
-            <input type="password" name="password" class="form-control input-md" placeholder="Passwort" required>
-            <input type="submit" class="btn btn-default" />
-          </form>
-          <br>
           <div class="alert hidden" id="alertChangePwdForm">
             <p></p>
           </div>
@@ -71,6 +61,16 @@ if(!isset($_SESSION['username'])){
           <form id="changePwdForm" class="form-inline" method="POST">
             <input type="password" name="oldPassword" class="form-control input-md" placeholder="Altes Passwort" required>
             <input type="password" name="newPassword" class="form-control input-md" placeholder="Neues Passwort" required>
+            <input type="submit" class="btn btn-default" />
+          </form>
+          <br>
+          <div class="alert alert-danger hidden" id="alertUserForm">
+            <p></p>
+          </div>
+          <span>Neuen User anlegen:</span>
+          <form id="userForm" class="form-inline" method="POST">
+            <input type="text" name="username" class="form-control input-md" placeholder="Benutzername" required>
+            <input type="password" name="password" class="form-control input-md" placeholder="Passwort" required>
             <input type="submit" class="btn btn-default" />
           </form>
 

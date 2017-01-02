@@ -1,9 +1,11 @@
 $(document).ready(function () {
 
+    //gets delay via callback async
     getDelay(function (delay) {
         $("#divSubmit").html("Der Delay beträgt zurzeit " + delay / 1000 + " Sekunden.");
     });
 
+    //form to set delay handling
     $('#delayForm').submit(function () {
         event.preventDefault();
         var f = $("#delayForm");
@@ -14,20 +16,23 @@ $(document).ready(function () {
             data: f.serialize(),
             processData: false,
             success: function (data) {
-                $("#txtDelay").val('');
+                $("#delayForm")[0].reset();
                 $("#divSubmit").html("Der Delay beträgt jetzt " + data + " Sekunden.");
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                $("#txtDelay").val('');
+                $("#delayForm")[0].reset();
                 $("#divSubmit").html(" " + thrownError);
             }
         });
     });
 
+    //gets user table from SQL
     $.post("php/users/getUsers.php", function (data) {
         $("#userTable").html(data);
     });
 
+    //listener listens to all elements which have userid attributes (delete user)
+    //deletes user with id which was clicked
     $('body').on("click", '[userid]', function () {
         var userid = $(this).attr("userid");
 
@@ -49,6 +54,7 @@ $(document).ready(function () {
         });
     });
 
+    //form to create users handling
     $('#userForm').submit(function () {
         event.preventDefault();
         var f = $("#userForm");
@@ -58,7 +64,7 @@ $(document).ready(function () {
             data: f.serialize(),
             processData: false,
             success: function (data) {
-                $(".form-control").val('');
+                $("#userForm")[0].reset();
                 $("#alertUserForm").fadeOut().addClass('hidden');
                 $("#alertUserForm > p").text('');
                 $.post("php/users/getUsers.php", function (data) {
@@ -66,13 +72,14 @@ $(document).ready(function () {
                 });
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                $(".form-control").val('');
+                $("#userForm")[0].reset();
                 $("#alertUserForm").fadeIn().removeClass('hidden');
                 $("#alertUserForm > p").text(thrownError);
             }
         });
     });
 
+    //form to change password handling
     $('#changePwdForm').submit(function () {
         event.preventDefault();
         var f = $("#changePwdForm");
@@ -82,7 +89,7 @@ $(document).ready(function () {
             data: f.serialize(),
             processData: false,
             success: function (data) {
-                $(".form-control").val('');
+                $("#changePwdForm")[0].reset();
                 $("#alertChangePwdForm").fadeIn(300).removeClass('hidden alert-danger').addClass('alert-success');
                 $("#alertChangePwdForm > p").text(data);
                 setTimeout(function () {
@@ -91,7 +98,7 @@ $(document).ready(function () {
                 }, 5000);
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                $(".form-control").val('');
+                $("#changePwdForm")[0].reset();
                 $("#alertChangePwdForm").fadeIn().removeClass('hidden').addClass('alert-danger');
                 $("#alertChangePwdForm > p").text(thrownError);
             }

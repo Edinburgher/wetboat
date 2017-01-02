@@ -2,6 +2,25 @@ function myMap() {
 
     //load userPolygonCoords from database
     getUserCoords(function (data) {
+
+        //local functions
+        function setSplinePath(path) {
+            courseBoat.setPath(bspline(path.getArray()));
+        }
+
+        function updateUserPolygonPath(newPath) {
+            //delete listeners from old path
+            google.maps.event.clearInstanceListeners(userPolygon.getPath());
+
+            //userPolygon is the one we can edit, so we need to just get the coordinates of the drawn polygon
+            userPolygon.setPath(newPath);
+
+            //new listeners because they trigger on path, not on polygon object
+            google.maps.event.addListener(userPolygon.getPath(), 'set_at', function(){return setSplinePath(userPolygon.getPath())});
+            google.maps.event.addListener(userPolygon.getPath(), 'insert_at', function(){return setSplinePath(userPolygon.getPath())});
+
+        }
+
         var polygonPoints = data;
         var polygonPointsSplined = bspline(polygonPoints);
 
@@ -23,7 +42,6 @@ function myMap() {
         var map = new google.maps.Map(mapCanvas, mapOptions);
 
         //Set course of the Boat as Polygon
-
         var courseBoat = new google.maps.Polygon({
             path: polygonPointsSplined,
             strokeColor: "#0000FF",
@@ -35,16 +53,11 @@ function myMap() {
 
         //init drawing overlay
         var drawingManager = new google.maps.drawing.DrawingManager({
-            //drawingMode: google.maps.drawing.OverlayType.POLYGON,
             drawingControl: false,
             drawingControlOptions: {
                 position: google.maps.ControlPosition.TOP_CENTER,
                 drawingModes: [
-                    //google.maps.drawing.OverlayType.MARKER,
-                    //google.maps.drawing.OverlayType.CIRCLE,
-                    google.maps.drawing.OverlayType.POLYGON,
-                    //google.maps.drawing.OverlayType.POLYLINE,
-                    //google.maps.drawing.OverlayType.RECTANGLE
+                    google.maps.drawing.OverlayType.POLYGON
                 ]
             }
         });
@@ -59,94 +72,58 @@ function myMap() {
             draggable: true
         });
 
+        //set initial listeners to drag polygon in edit mode
+        updateUserPolygonPath(polygonPoints);
 
-        /*
-    //Boot Position
-    var boatCoords = new google.maps.LatLng(47.785994, 13.037930);
-  
-            var contentString = '<div id="content">'+
-                '<div id="siteNotice">'+
-                '</div>'+
-                '<h1 id="firstHeading" class="firstHeading">Position Boot</h1>';
-
-            var infowindow = new google.maps.InfoWindow({
-              content: contentString
-            });
-            var boatMarker = new google.maps.Marker({position:myMarker});
-            marker.addListener('click', function() {
-              infowindow.open(map, boatMarker);
-            });
-            boatMarker.setMap(map);*/
-
-        //
+        //fires when new polygon is finished (Neue Route)
         google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon) {
-
+            //exit drawing mode and delete drawn polygon
             drawingManager.setDrawingMode(null);
-            userPolygon.setPath(polygon.getPath());
             polygon.setMap(null);
 
-            console.log("Draw complete activated");
+            updateUserPolygonPath(polygon.getPath());
 
-            var splinedArray = bspline(userPolygon.getPath().getArray());
-            courseBoat.setPath(splinedArray);
+            setSplinePath(userPolygon.getPath());
             userPolygon.setMap(map);
             courseBoat.setMap(map);
-            google.maps.event.addListener(userPolygon.getPath(), 'set_at', setSplinePath);
-
-            google.maps.event.addListener(userPolygon.getPath(), 'insert_at', setSplinePath);
-
         });
-
-        google.maps.event.addListener(userPolygon.getPath(), 'set_at', setSplinePath);
-
-        google.maps.event.addListener(userPolygon.getPath(), 'insert_at', setSplinePath);
-
-        google.maps.event.addListener(userPolygon, 'dragend', function () {
-            console.log("drag activated");
-            var splinedArray = bspline(userPolygon.getPath().getArray());
-            courseBoat.setPath(splinedArray);
-
-        });
-
 
         userPolygon.setMap(null);
         courseBoat.setMap(map);
         drawingManager.setMap(map);
 
-        function setSplinePath() {
-            courseBoat.setPath(bspline(userPolygon.getPath().getArray()));
-        }
+
+
         //Buttons above maps
         $(document).ready(function () {
 
+            //hides old course and prepares drawing mode
             $("#btnNew").click(function () {
+                //show the save and cancel buttons
                 $(".drawOption").removeClass("hidden");
+
+                //hide the old course
                 userPolygon.setMap(null);
                 courseBoat.setMap(null);
+
                 drawingManager.setOptions({
                     drawingControl: true,
                     drawingMode: google.maps.drawing.OverlayType.POLYGON
                 });
             });
 
+            //shows editable polygon
             $("#btnEdit").click(function () {
                 $(".drawOption").removeClass("hidden");
                 userPolygon.setMap(map);
-                /*drawingManager.setOptions({
-                    drawingControl: true,
-                    //drawingMode: google.maps.drawing.OverlayType.POLYGON
-                });*/
             });
 
+            //saves new coords to splineCoords.txt and DB
             $("#btnSave").click(function () {
-                var overwrite = true;
-                //overwrite = confirm("Wollen Sie wirklich das alte Polygon überschreiben?");
-                if (overwrite === true) {
-                    var userCoords = userPolygon.getPath().getArray();
-                    var splinedCoords = bspline(userCoords);
-                    courseBoat.setPath(splinedCoords);
-                    writeCoords(userCoords, splinedCoords);
-                }
+                var userCoords = userPolygon.getPath().getArray();
+                var splinedCoords = bspline(userCoords);
+                writeCoords(userCoords, splinedCoords);
+
                 $(".drawOption").addClass("hidden");
 
                 drawingManager.setOptions({
@@ -160,11 +137,8 @@ function myMap() {
                 $(".drawOption").addClass("hidden");
                 getUserCoords(function (data) {
                     var userCoords = data;
-                    userPolygon.setPath(userCoords);
                     //set listeners for new (old) path
-                    google.maps.event.addListener(userPolygon.getPath(), 'set_at', setSplinePath);
-
-                    google.maps.event.addListener(userPolygon.getPath(), 'insert_at', setSplinePath);
+                    updateUserPolygonPath(userCoords);
 
                     courseBoat.setPath(bspline(userCoords));
                     userPolygon.setMap(null);

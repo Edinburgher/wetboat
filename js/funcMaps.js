@@ -3,16 +3,15 @@ function writeCoords(userCoords, splineCoords) {
     splineCoords.forEach(function (entry) {
         strWrite = strWrite + entry.lat().toFixed(6) + "," + entry.lng().toFixed(6) + "\n";
     });
-    //console.log(strWrite);
+
+    //saves the coords to splineCoords.txt
     $.post("php/users/saveSplineCoords.php", {
         'data': strWrite
     });
 
+    //saves userCoords to SQL table user_coords
     $.post("php/users/saveUserCoords.php", {
         userCoords: JSON.stringify(userCoords)
-    }).done(function (data) {
-        console.log(data);
-        console.log("Write finished");
     });
 }
 
@@ -30,13 +29,11 @@ function getUserCoords(callback) {
                 ret.push(new google.maps.LatLng(elem[0], elem[1]));
             });
             return callback(ret);
-            //console.log(ret);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(errorThrown);
         }
     });
-    //return ret;
 }
 
 function makeArraySplinable(pathArray) {

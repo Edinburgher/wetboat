@@ -5,15 +5,9 @@ if(!isset($_SESSION['username'])){
 }
 if(empty($_POST['delay']))
 {
-    die(header("HTTP/1.1 500 delay ist leer"));
+    die(header("HTTP/1.1 500 Bitte geben Sie eine Zahl ein."));
 }
 $delay = $_POST['delay'];
-if (empty($delay)){
-    header('Content-Type: text/plain; charset=utf-8');
-    header("HTTP/1.1 500 Bitte geben Sie eine Zahl ein.");
-    echo mysqli_error(); // Detailed error message in the response body
-    die();
-}
 
 require_once '../Db.php';
 $db = new Db();

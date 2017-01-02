@@ -12,7 +12,6 @@ $db = new Db();
 
 $userCoords = json_decode($_POST['userCoords']);
 
-
 //http://stackoverflow.com/questions/7746720/inserting-a-multi-dimensional-php-array-into-a-mysql-database
 $data = array();
 foreach($userCoords as $row) {

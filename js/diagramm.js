@@ -65,10 +65,9 @@ $(document).ready(function () {
                                         dataType: 'json',
                                         success: function (data) {
                                             //data is {}
-                                            //console.log(data);
                                             var measurements = data;
                                             x = Date.parse(measurements['time_measured'] + ' UTC');
-                                            //console.log(x);
+
                                             if (x > lastMeasurement) {
                                                 lastMeasurement = x;
                                                 y[0] = parseFloat(measurements['temperature_air']);

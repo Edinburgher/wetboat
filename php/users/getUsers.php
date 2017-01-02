@@ -6,7 +6,8 @@ if(!isset($_SESSION['username'])){
 
 require_once '../Db.php';
 $db = new Db();
-$rows = $db->select("SELECT * FROM users;");
+$rows = $db->select("SELECT * FROM users;")
+        or die(header("HTTP/1.1 500 Keine user vorhanden"));;
 
 echo "<table class='table table-responsive table-bordered'>
 <tr>

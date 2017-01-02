@@ -4,6 +4,10 @@ if(!isset($_SESSION['username']))
 {
     die("forbidden");
 }
+if(empty($_POST['oldPassword']) or empty($_POST['newPassword']))
+{
+    die(header("HTTP/1.1 500 Passwort darf nicht leer sein"));
+}
 
 $user_password_old = $_POST['oldPassword'];
 $user_password_new = $_POST['newPassword'];
@@ -13,7 +17,8 @@ require_once '../Db.php';
 $db = new Db();
 $username = $db->quote($_SESSION['username']);
 
-$rows = $db->select("SELECT * FROM users WHERE username=$username;");
+$rows = $db->select("SELECT * FROM users WHERE username=$username;")
+        or die(header("HTTP/1.1 500 Benutzer existiert nicht"));
 $password_old = $rows[0]['hashed_password'];
 if (password_verify($user_password_old, $password_old))
 {
@@ -23,10 +28,7 @@ if (password_verify($user_password_old, $password_old))
 }
 else
 {
-    header('Content-Type: text/plain; charset=utf-8');
-    header("HTTP/1.1 500 Falsches Passwort");
-    echo  $db->error(); // Detailed error message in the response body
-    die();
+    die(header("HTTP/1.1 500 Falsches Passwort"));
 }
 
 echo 'Passwortänderung erfolgreich!';

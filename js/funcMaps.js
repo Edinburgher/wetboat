@@ -32,6 +32,7 @@ function getUserCoords(callback) {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(errorThrown);
+            return callback([]);
         }
     });
 }

@@ -13,9 +13,16 @@ class Db {
         // Try and connect to the database
         if(!isset(self::$connection)) {
             // Load configuration as an array. Use the actual location of your configuration file
-            //$config = parse_ini_file('../../config/config.ini');
             require_once $_SERVER["DOCUMENT_ROOT"] . '/php/config.php';
-            self::$connection = new mysqli($host,$user,$pwd,$db);
+            
+            //http://stackoverflow.com/questions/15553496/new-mysqli-how-to-intercept-an-unable-to-connect-error
+            mysqli_report(MYSQLI_REPORT_STRICT);
+            try {
+                self::$connection = new mysqli($host,$user,$pwd,$db);
+            } catch (Exception $e ) {
+                die(header("HTTP/1.1 500 SQL Server offline"));
+            }
+            
         }
         
         // If connection was not successful, handle the error

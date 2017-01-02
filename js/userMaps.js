@@ -6,6 +6,8 @@ function myMap() {
 
         //Map init
         var mapCanvas = document.getElementById("map");
+        //https://trulycode.com/bytes/disable-google-maps-drag-zoom-mobile-iphone/
+        var isDraggable = !('ontouchstart' in document.documentElement);
         var mapOptions = {
             center: polygonPointsSplined[0],
             zoom: 16,
@@ -13,9 +15,9 @@ function myMap() {
             scrollwheel: false,
             navigationControl: false,
             scaleControl: false,
-            draggable: true,
+            draggable: isDraggable,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
-            gestureHandling: "greedy"
+            //gestureHandling: 'none'
         };
         var map = new google.maps.Map(mapCanvas, mapOptions);
 

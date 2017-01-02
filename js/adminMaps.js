@@ -35,13 +35,16 @@ function myMap() {
 
         //Map init
         var mapCanvas = document.getElementById("map");
+        //https://trulycode.com/bytes/disable-google-maps-drag-zoom-mobile-iphone/
+        var isDraggable = !('ontouchstart' in document.documentElement);
         var mapOptions = {
             center: polygonPointsSplined[0],
             zoom: 16,
 
-            draggable: true,
+            draggable: isDraggable,
+            scrollwheel: isDraggable,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
-            gestureHandling: "greedy"
+            gestureHandling: 'auto'
         };
         var map = new google.maps.Map(mapCanvas, mapOptions);
 
@@ -111,12 +114,20 @@ function myMap() {
                 courseBoat.setMap(null);
 
                 drawingManager.setDrawingMode('polygon');
+                map.setOptions({
+                    draggable: true,
+                    gestureHandling: 'greedy'
+                });
             });
 
             //shows editable polygon
             $("#btnEdit").click(function () {
                 $(".drawOption").removeClass("hidden");
                 userPolygon.setMap(map);
+                map.setOptions({
+                    draggable: true,
+                    gestureHandling: 'greedy'
+                });
             });
 
             //saves new coords to splineCoords.txt and DB
@@ -127,7 +138,10 @@ function myMap() {
 
                 //hide save and cancel buttons
                 $(".drawOption").addClass("hidden");
-
+                map.setOptions({
+                    draggable: isDraggable,
+                    gestureHandling: 'auto'
+                });
                 drawingManager.setDrawingMode(null);
                 userPolygon.setMap(null);
             });
@@ -140,7 +154,10 @@ function myMap() {
                     updateUserPolygonPath(userCoords);
 
                     courseBoat.setPath(bspline(userCoords));
-
+                    map.setOptions({
+                        draggable: isDraggable,
+                        gestureHandling: 'auto'
+                    });
                     //hide editable polygon and update splined one
                     userPolygon.setMap(null);
                     courseBoat.setMap(map);

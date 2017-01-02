@@ -16,14 +16,12 @@ function getDelay(callback) {
                 console.log(errorThrown);
             }
         });
-    }
-    else{
-        //console.log("saved some time");
+    } else {
         return callback(getDelay.delayMS);
-    } 
-    //return ret;
+    }
 }
 
 //http://www.deluxeblogtips.com/missing-way-to-create-function-static/
-//function is an object in js ... WAT
+//function is an object in js
+//acts like a static variable in C
 getDelay.delayMS = NaN;

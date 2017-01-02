@@ -19,14 +19,12 @@ $(document).ready(function () {
         data: "",
         async: true,
         dataType: 'json',
-        success: function wtf(rows) {
+        success: function (rows) {
             //rows is [{}]
-            // console.log(rows);
-            rows.forEach(function wtf2(elem) {
+            rows.forEach(function (elem) {
                 points['temperature_air'].push([
                     Date.parse(elem['time_measured'] + ' UTC'), parseFloat(elem['temperature_air'])
                 ]);
-
                 points['temperature_water'].push([
                     Date.parse(elem['time_measured'] + ' UTC'), parseFloat(elem['temperature_water'])
                 ]);
@@ -44,8 +42,6 @@ $(document).ready(function () {
                 ]);
 
             });
-            //console.log(rows[19]['time_measured']);
-            //console.log(points);
 
             // Create the chart
             $('#container').highcharts('StockChart', {
@@ -60,16 +56,7 @@ $(document).ready(function () {
 
                             getDelay(function (delayMS) {
                                 setInterval(function () {
-                                    //x = (new Date()).getTime(); // current time
-                                    /*console.log(x);
-                                    y[0] = Math.round(Math.random() * 10 * 3) / 10 + 20;
-                                    y[1] = Math.round(Math.random() * 10 * 3) / 10 + 16;
-                                    y[2] = Math.round(Math.random() * 10 * 1) / 10 + 6;
-                                    y[3] = Math.round(Math.random() * 10 * 3) / 10 + 5;*/
-
                                     //Measurement data
-
-
                                     $.ajax({
                                         type: 'POST',
                                         url: 'php/getNewestMeasurement.php',
@@ -96,12 +83,6 @@ $(document).ready(function () {
                                             } else {
                                                 x = (new Date()).getTime();
                                             }
-                                            //done: Dann in onload von Highcharts einfügen
-                                            //done: Y[0] und so und checken ob der Punkt bei der zeit schon existiert
-                                            //done: bei .csv dann auch die Ziet einfügen, dann muss aber die Zeit vom Raspi richtig sein
-                                            //done: TODO: ei upload mal probieren random werte vom Raspi auf ftp server
-                                            //Die lon und lat dann in die maps rein
-                                            //
                                         },
                                         error: function (jqXHR, textStatus, errorThrown) {
                                             console.log(errorThrown);
@@ -190,7 +171,7 @@ $(document).ready(function () {
                     selected: 0
                 },
                 title: {
-                    text: 'Live Temperatur'
+                    text: 'Live Messdaten'
                 },
                 legend: {
                     enabled: true,
@@ -239,7 +220,4 @@ $(document).ready(function () {
             });
         }
     });
-
-
-
 });

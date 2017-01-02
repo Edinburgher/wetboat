@@ -3,7 +3,7 @@ $(document).ready(function () {
         event.preventDefault();
         var f = $("#loginForm");
 
-        //TODO: not safe unless SSL.. lol
+        //not safe unless you're using https
         $.ajax({
             type: 'POST',
             url: "php/login.php",

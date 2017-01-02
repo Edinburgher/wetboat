@@ -16,8 +16,12 @@ function myMap() {
             userPolygon.setPath(newPath);
 
             //new listeners because they trigger on path, not on polygon object
-            google.maps.event.addListener(userPolygon.getPath(), 'set_at', function(){return setSplinePath(userPolygon.getPath())});
-            google.maps.event.addListener(userPolygon.getPath(), 'insert_at', function(){return setSplinePath(userPolygon.getPath())});
+            google.maps.event.addListener(userPolygon.getPath(), 'set_at', function () {
+                return setSplinePath(userPolygon.getPath())
+            });
+            google.maps.event.addListener(userPolygon.getPath(), 'insert_at', function () {
+                return setSplinePath(userPolygon.getPath())
+            });
 
         }
 
@@ -106,10 +110,7 @@ function myMap() {
                 userPolygon.setMap(null);
                 courseBoat.setMap(null);
 
-                drawingManager.setOptions({
-                    drawingControl: true,
-                    drawingMode: google.maps.drawing.OverlayType.POLYGON
-                });
+                drawingManager.setDrawingMode('polygon');
             });
 
             //shows editable polygon
@@ -124,12 +125,10 @@ function myMap() {
                 var splinedCoords = bspline(userCoords);
                 writeCoords(userCoords, splinedCoords);
 
+                //hide save and cancel buttons
                 $(".drawOption").addClass("hidden");
 
-                drawingManager.setOptions({
-                    drawingControl: false,
-                    drawingMode: null
-                });
+                drawingManager.setDrawingMode(null);
                 userPolygon.setMap(null);
             });
 
@@ -141,12 +140,11 @@ function myMap() {
                     updateUserPolygonPath(userCoords);
 
                     courseBoat.setPath(bspline(userCoords));
+
+                    //hide editable polygon and update splined one
                     userPolygon.setMap(null);
                     courseBoat.setMap(map);
-                    drawingManager.setOptions({
-                        drawingControl: false,
-                        drawingMode: null
-                    });
+                    drawingManager.setDrawingMode(null);
                 });
 
             });

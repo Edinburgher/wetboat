@@ -21,24 +21,27 @@ $(document).ready(function () {
         dataType: 'json',
         success: function (rows) {
             //rows is [{}]
+
             rows.forEach(function (elem) {
+                var t = elem['time_measured'].split(/[- :]/);
+                var time_measured = new Date(Date.UTC(t[0], t[1] - 1, t[2], t[3], t[4], t[5])).getTime();
                 points['temperature_air'].push([
-                    Date.parse(elem['time_measured'] + ' UTC'), parseFloat(elem['temperature_air'])
+                    time_measured, parseFloat(elem['temperature_air'])
                 ]);
                 points['temperature_water'].push([
-                    Date.parse(elem['time_measured'] + ' UTC'), parseFloat(elem['temperature_water'])
+                    time_measured, parseFloat(elem['temperature_water'])
                 ]);
                 points['speed_wind'].push([
-                    Date.parse(elem['time_measured'] + ' UTC'), parseFloat(elem['speed_wind'])
+                    time_measured, parseFloat(elem['speed_wind'])
                 ]);
                 points['speed_boat'].push([
-                    Date.parse(elem['time_measured'] + ' UTC'), parseFloat(elem['speed_boat'])
+                    time_measured, parseFloat(elem['speed_boat'])
                 ]);
                 points['lat_boat'].push([
-                    Date.parse(elem['time_measured'] + ' UTC'), parseFloat(elem['lat_boat'])
+                    time_measured, parseFloat(elem['lat_boat'])
                 ]);
                 points['lon_boat'].push([
-                    Date.parse(elem['time_measured'] + ' UTC'), parseFloat(elem['lon_boat'])
+                    time_measured, parseFloat(elem['lon_boat'])
                 ]);
 
             });
@@ -63,24 +66,25 @@ $(document).ready(function () {
                                         data: "",
                                         async: true,
                                         dataType: 'json',
-                                        success: function (data) {
+                                        success: function (measurement) {
                                             //data is {}
-                                            var measurements = data;
-                                            x = Date.parse(measurements['time_measured'] + ' UTC');
+                                            var t = measurement['time_measured'].split(/[- :]/);
+                                            var x = new Date(Date.UTC(t[0], t[1] - 1, t[2], t[3], t[4], t[5]));
 
                                             if (x > lastMeasurement) {
                                                 lastMeasurement = x;
-                                                y[0] = parseFloat(measurements['temperature_air']);
-                                                y[1] = parseFloat(measurements['temperature_water']);
-                                                y[2] = parseFloat(measurements['speed_wind']);
-                                                y[3] = parseFloat(measurements['speed_boat']);
+                                                y[0] = parseFloat(measurement['temperature_air']);
+                                                y[1] = parseFloat(measurement['temperature_water']);
+                                                y[2] = parseFloat(measurement['speed_wind']);
+                                                y[3] = parseFloat(measurement['speed_boat']);
 
                                                 for (var i = 0; i < series.length - 1; i++) {
                                                     series[i].addPoint([x, y[i]], (i + 2 === series.length), true);
                                                 }
 
-                                            } else {
-                                                x = (new Date()).getTime();
+                                                setNewestBoatMarker(x,measurement['lat_boat'], measurement['lon_boat']);
+
+                                                
                                             }
                                         },
                                         error: function (jqXHR, textStatus, errorThrown) {

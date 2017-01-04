@@ -6,10 +6,10 @@ $(document).ready(function () {
     });
 
     //form to set delay handling
-    $('#delayForm').submit(function () {
+    $('#delayForm').submit(function (event) {
+        //stop page from reloading after submit
         event.preventDefault();
-        var f = $("#delayForm");
-        console.log(f.serialize());
+        var f = $('#delayForm');
         $.ajax({
             type: "POST",
             url: "php/users/setDelay.php",
@@ -56,6 +56,7 @@ $(document).ready(function () {
 
     //form to create users handling
     $('#userForm').submit(function () {
+        //stop page from reloading after submit
         event.preventDefault();
         var f = $("#userForm");
         $.ajax({
@@ -81,6 +82,7 @@ $(document).ready(function () {
 
     //form to change password handling
     $('#changePwdForm').submit(function () {
+        //stop page from reloading after submit
         event.preventDefault();
         var f = $("#changePwdForm");
         $.ajax({

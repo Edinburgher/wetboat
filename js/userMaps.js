@@ -1,3 +1,6 @@
+//needs to be global so that getNewestMeasurements only has to be called once in diagramm.js
+var setNewestBoatMarker;
+
 function myMap() {
     //load userPolygonCoords from database
     getUserCoords(function (data) {
@@ -32,58 +35,36 @@ function myMap() {
 
         courseBoat.setMap(map);
 
-        var lastMeasurement = new Date(0);
         var boatMarker = new google.maps.Marker();
         var infowindow = new google.maps.InfoWindow();
-        //set newest boat location marker every $delayMS seconds
-        getDelay(function (delayMS) {
-            setInterval(function setNewestBoatMarker() {
-                $.ajax({
-                    type: 'POST',
-                    url: 'php/getNewestMeasurement.php',
-                    data: "",
-                    async: true,
-                    dataType: 'json',
-                    success: function (data) {
-                        //data is {}
-                        var timestamp = new Date(Date.parse(data['time_measured']));
-                        if (timestamp > lastMeasurement) {
-                            lastMeasurement = timestamp;
-                            var datestring = (timestamp.getDate() < 10 ? '0' : '') + timestamp.getDate() + "." +
-                                (timestamp.getMonth() + 1 < 10 ? '0' : '') + (timestamp.getMonth() + 1) + "." +
-                                timestamp.getFullYear() + " " +
-                                (timestamp.getHours() < 10 ? '0' : '') + timestamp.getHours() + ":" +
-                                (timestamp.getMinutes() < 10 ? '0' : '') + timestamp.getMinutes() + ":" +
-                                (timestamp.getSeconds() < 10 ? '0' : '') + timestamp.getSeconds();
+        setNewestBoatMarker = function(x, lat, lon){
+            var datestring = (x.getDate() < 10 ? '0' : '') + x.getDate() + "." +
+                (x.getMonth() + 1 < 10 ? '0' : '') + (x.getMonth() + 1) + "." +
+                x.getFullYear() + " " +
+                (x.getHours() < 10 ? '0' : '') + x.getHours() + ":" +
+                (x.getMinutes() < 10 ? '0' : '') + x.getMinutes() + ":" +
+                (x.getSeconds() < 10 ? '0' : '') + x.getSeconds();
 
-                            var boatCoords = new google.maps.LatLng(data['lat_boat'], data['lon_boat']);
+            var boatCoords = new google.maps.LatLng(lat, lon);
 
-                            var contentString = '<div id="content">' +
-                                '<div id="siteNotice">' +
-                                '</div>' +
-                                '<h1 id="firstHeading" class="firstHeading">Position Boot</h1>' +
-                                '<div>' + datestring + '</div>';
+            var contentString = '<div id="content">' +
+                '<div id="siteNotice">' +
+                '</div>' +
+                '<h1 id="firstHeading" class="firstHeading">Position Boot</h1>' +
+                '<div>' + datestring + '</div>';
 
-                            infowindow.setOptions({
-                                content: contentString
-                            });
-                            boatMarker.setMap(null);
-                            boatMarker.setOptions({
-                                position: boatCoords,
-                                map: map
-                            });
-                            boatMarker.addListener('click', function () {
-                                infowindow.open(map, boatMarker);
-                            });
-                        }
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.log(errorThrown);
-                    }
-                });
-
-            }, delayMS);
-        });
+            infowindow.setOptions({
+                content: contentString
+            });
+            boatMarker.setMap(null);
+            boatMarker.setOptions({
+                position: boatCoords,
+                map: map
+            });
+            boatMarker.addListener('click', function () {
+                infowindow.open(map, boatMarker);
+            });
+        }
     });
 
 }

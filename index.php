@@ -8,13 +8,18 @@ session_start();
     <?php
       include_once "php/head.php";
     ?>
-  
+
     <script src="https://code.highcharts.com/stock/highstock.js"></script>
     <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
-    <script src="js/delay.js"></script>
+    <script src="js/delay.js"></script>    
+    <script src="js/funcMaps.js"></script> 
+    <script src="js/userMaps.js"></script>    
+    <?php
+      include_once "php/maps.php";
+    ?>
     <script src="js/diagramm.js"></script>
-    <script src="js/index.js"></script>
-    <script src="js/funcMaps.js"></script>
+    <script src="js/index.js"></script>   
+
     <link rel="stylesheet" href="css/main.css">
   </head>
 
@@ -41,10 +46,7 @@ session_start();
     <?php
       include_once "php/footer.php";
     ?>
-    <script src="js/userMaps.js"></script>
-    <?php
-      include_once "php/maps.php";
-    ?>
+
   </body>
 
 </html>

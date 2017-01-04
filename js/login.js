@@ -1,5 +1,6 @@
 $(document).ready(function () {
-    $('#loginForm').submit(function () {
+    $('#loginForm').submit(function (event) {
+        //stop page from reloading after submit
         event.preventDefault();
         var f = $("#loginForm");
 

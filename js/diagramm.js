@@ -79,7 +79,7 @@ $(document).ready(function () {
                                                 y[3] = parseFloat(measurement['speed_boat']);
 
                                                 for (var i = 0; i < series.length - 1; i++) {
-                                                    series[i].addPoint([x, y[i]], (i + 2 === series.length), true);
+                                                    series[i].addPoint([x.getTime(), y[i]], (i + 2 === series.length), true);
                                                 }
 
                                                 setNewestBoatMarker(x,measurement['lat_boat'], measurement['lon_boat']);

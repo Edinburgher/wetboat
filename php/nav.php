@@ -6,7 +6,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="./"><img alt="Brand" src="img/Logo_website_new.png"></a>
+            <a class="navbar-brand" href="./"><img alt="Brand" src="/img/Logo_website_new.png"></a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
@@ -33,13 +33,13 @@
                     if ($filename === "admin.php")
                         echo " class='active'";
 
-                    echo "><a href='./admin' id='btnLogin'>Admin</a></li>";
-                    echo "<li><a href='php/logout' id='btnLogin'><span class='glyphicon glyphicon-log-out'></span> Abmelden</a></li>";
+                    echo "><a href='/admin' id='btnLogin'>Admin</a></li>";
+                    echo "<li><a href='/php/logout' id='btnLogin'><span class='glyphicon glyphicon-log-out'></span> Abmelden</a></li>";
                 } else {
                     echo "<li";
                     if ($filename === "login.php")
                         echo " class='active'";
-                    echo "><a href='./login' id='btnLogin'><span class='glyphicon glyphicon-log-in'></span> Anmelden</a></li>";
+                    echo "><a href='/login' id='btnLogin'><span class='glyphicon glyphicon-log-in'></span> Anmelden</a></li>";
                 }
                 ?>
             </ul>

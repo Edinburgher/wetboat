@@ -10,7 +10,7 @@ if (!isset($_SESSION['username'])) {
 
 <head>
     <?php
-    include_once "php/head.php";
+    include_once __DIR__ . "/php/head.php";
     ?>
 
     <script src="js/delay.js"></script>
@@ -21,7 +21,7 @@ if (!isset($_SESSION['username'])) {
 
 <body>
     <?php
-    include_once "php/nav.php";
+    include_once __DIR__ . "/php/nav.php";
     ?>
 
     <div class="container-fluid">
@@ -87,13 +87,13 @@ if (!isset($_SESSION['username'])) {
     </div>
 
     <?php
-    include_once "php/footer.php";
+    include_once __DIR__ . "/php/footer.php";
     ?>
 
     <script src="js/adminMaps.js"></script>
 
     <?php
-    include_once "php/maps.php";
+    include_once __DIR__ . "/php/maps.php";
     ?>
 </body>
 

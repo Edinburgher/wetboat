@@ -6,7 +6,7 @@ session_start();
 
 <head>
     <?php
-    include_once "php/head.php";
+    include_once __DIR__ . "/php/head.php";
     ?>
 
     <link rel="stylesheet" href="css/main.css">
@@ -16,7 +16,7 @@ session_start();
 
 <body>
     <?php
-    include_once "php/nav.php";
+    include_once __DIR__ . "/php/nav.php";
     ?>
     <form id="loginForm" class="form-signin" method="POST">
         <div class="alert alert-danger hidden" id="errorMessage">
@@ -33,7 +33,7 @@ session_start();
     </form>
 
     <?php
-    include_once "php/footer.php";
+    include_once __DIR__ . "/php/footer.php";
     ?>
 </body>
 

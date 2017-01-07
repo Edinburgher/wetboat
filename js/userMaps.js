@@ -3,8 +3,7 @@ var setNewestBoatMarker;
 
 function myMap() {
     //load userPolygonCoords from database
-    getUserCoords(function (data) {
-        var polygonPoints = data;
+    getUserCoords(function (polygonPoints) {
         var polygonPointsSplined = bspline(polygonPoints);
 
         //Map init
@@ -19,8 +18,7 @@ function myMap() {
             navigationControl: false,
             scaleControl: false,
             draggable: isDraggable,
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            //gestureHandling: 'none'
+            mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         var map = new google.maps.Map(mapCanvas, mapOptions);
 

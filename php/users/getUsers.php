@@ -4,8 +4,8 @@ if (!isset($_SESSION['username'])) {
     die("forbidden");
 }
 
-require_once '../Db.php';
-$db = new Db();
+require_once '../WetboatDB.php';
+$db = new WetboatDB();
 $rows = $db->select("SELECT * FROM users;") or die(header("HTTP/1.1 500 Keine user vorhanden"));
 
 echo "<table class='table table-responsive table-bordered'>

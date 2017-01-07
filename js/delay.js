@@ -1,5 +1,4 @@
 function getDelay(callback) {
-    var ret;
     if (isNaN(getDelay.delayMS)) {
         $.ajax({
             type: 'POST',

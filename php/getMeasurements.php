@@ -1,7 +1,7 @@
 <?php
-require_once 'Db.php';
+require_once 'WetboatDB.php';
 
-$db = new Db();
+$db = new WetboatDB();
 
 $rows = $db->select("SELECT * FROM 
         (SELECT * FROM measurements ORDER BY time_measured DESC LIMIT 20)test 

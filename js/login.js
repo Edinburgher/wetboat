@@ -14,9 +14,8 @@ $(document).ready(function () {
                 window.location.href = './admin';
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                //alert(thrownError);
                 $("#errorMessage").fadeIn().removeClass('hidden');
-                $("#errorMessage > p").text(thrownError);
+                $("#errorMessage").find("> p").text(thrownError);
                 $(".form-control").val('');
             }
         });

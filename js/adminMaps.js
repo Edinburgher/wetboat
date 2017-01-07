@@ -112,7 +112,7 @@ function myMap() {
                 userPolygon.setMap(null);
                 courseBoat.setMap(null);
 
-                drawingManager.setDrawingMode('polygon');
+                drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
                 map.setOptions({
                     draggable: true,
                     gestureHandling: 'greedy'

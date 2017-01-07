@@ -8,8 +8,8 @@ if (empty($_POST['delay']) or !is_numeric($_POST['delay'])) {
 }
 $delay = $_POST['delay'];
 
-require_once '../Db.php';
-$db = new Db();
+require_once '../WetboatDB.php';
+$db = new WetboatDB();
 $db->quote($delay);
 $db->query("UPDATE settings SET delay=$delay;");
 echo $delay;

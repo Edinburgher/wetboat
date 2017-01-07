@@ -41,15 +41,15 @@ $(document).ready(function () {
             url: "php/users/deleteUser.php",
             data: 'id=' + userid,
             processData: false,
-            success: function (data) {
+            success: function () {
                 $.post("php/users/getUsers.php", function (data) {
                     $("#userTable").html(data);
                 });
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 console.log(thrownError);
-                $("#alertUserForm").fadeIn().removeClass('hidden');
-                $("#alertUserForm > p").text(thrownError);
+                $("#alertUserForm").fadeIn().removeClass('hidden')
+                    .find("> p").text(thrownError);
             }
         });
     });
@@ -64,18 +64,18 @@ $(document).ready(function () {
             url: "php/users/createUser.php",
             data: f.serialize(),
             processData: false,
-            success: function (data) {
+            success: function () {
                 $("#userForm")[0].reset();
-                $("#alertUserForm").fadeOut().addClass('hidden');
-                $("#alertUserForm > p").text('');
+                $("#alertUserForm").fadeOut().addClass('hidden')
+                    .find("> p").text('');
                 $.post("php/users/getUsers.php", function (data) {
                     $("#userTable").html(data);
                 });
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 $("#userForm")[0].reset();
-                $("#alertUserForm").fadeIn().removeClass('hidden');
-                $("#alertUserForm > p").text(thrownError);
+                $("#alertUserForm").fadeIn().removeClass('hidden')
+                    .find("> p").text(thrownError);
             }
         });
     });
@@ -92,17 +92,17 @@ $(document).ready(function () {
             processData: false,
             success: function (data) {
                 $("#changePwdForm")[0].reset();
-                $("#alertChangePwdForm").fadeIn(300).removeClass('hidden alert-danger').addClass('alert-success');
-                $("#alertChangePwdForm > p").text(data);
+                $("#alertChangePwdForm").fadeIn(300).removeClass('hidden alert-danger').addClass('alert-success')
+                    .find("> p").text(data);
                 setTimeout(function () {
-                    $("#alertChangePwdForm").fadeOut(300).addClass('hidden').removeClass('alert-success');
-                    $("#alertChangePwdForm > p").text('');
+                    $("#alertChangePwdForm").fadeOut(300).addClass('hidden').removeClass('alert-success')
+                        .find("> p").text('');
                 }, 5000);
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 $("#changePwdForm")[0].reset();
-                $("#alertChangePwdForm").fadeIn().removeClass('hidden').addClass('alert-danger');
-                $("#alertChangePwdForm > p").text(thrownError);
+                $("#alertChangePwdForm").fadeIn().removeClass('hidden').addClass('alert-danger')
+                    .find("> p").text(thrownError);
             }
         });
     });

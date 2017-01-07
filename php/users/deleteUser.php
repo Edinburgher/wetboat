@@ -6,7 +6,7 @@ if (!isset($_SESSION['username'])) {
 if (empty($_POST['id'])) {
     die(header("HTTP/1.1 500 id ist leer"));
 }
-require_once '../Db.php';
-$db = new Db();
+require_once '../WetboatDB.php';
+$db = new WetboatDB();
 $userid = $db->quote($_POST['id']);
 $rows = $db->query("DELETE FROM users WHERE ID=$userid;");

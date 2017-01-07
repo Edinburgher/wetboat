@@ -6,8 +6,8 @@ if (!isset($_SESSION['username'])) {
 if (empty($_POST['userCoords'])) {
     die(header("HTTP/1.1 500 userCoords ist leer"));
 }
-require_once '../Db.php';
-$db = new Db();
+require_once '../WetboatDB.php';
+$db = new WetboatDB();
 
 $userCoords = json_decode($_POST['userCoords']);
 

@@ -69,7 +69,7 @@ $(document).ready(function () {
                                         success: function (measurement) {
                                             //data is {}
                                             var t = measurement['time_measured'].split(/[- :]/);
-                                            var x = new Date(Date.UTC(t[0], t[1] - 1, t[2], t[3], t[4], t[5]));
+                                            x = new Date(Date.UTC(t[0], t[1] - 1, t[2], t[3], t[4], t[5]));
 
                                             if (x > lastMeasurement) {
                                                 lastMeasurement = x;
@@ -139,7 +139,7 @@ $(document).ready(function () {
                     title: {
                         text: 'Luftfeuchte',
                         style: {
-                            "color": "blue",
+                            "color": "blue"
                         }
                     },
                     labels: {

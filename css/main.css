@@ -5,7 +5,7 @@
 /* Remove the navbar's default margin-bottom and rounded borders */
 
 .navbar {
-    margin-bottom: 20;
+    margin-bottom: 20px;
     border-radius: 0;
 }
 
@@ -28,19 +28,11 @@
     height: 100px
 }
 
-/* Set gray background color and 100% height */
-
-.sidenav {
-    padding-top: 20px;
-    background-color: #f1f1f1;
-    height: 100%;
-}
-
 /* Set black background color, white text and some padding */
 
 footer {
     position: relative;
-    bottom: 0px;
+    bottom: 0;
     margin-top: 30px;
     width: 100%;
     height: auto;
@@ -61,14 +53,13 @@ footer {
 }
 
 .navbar-brand {
-    background-color: #04b6c2;
     background-color: inherit;
 }
 
 .navbar-brand > img {
     height: 100px;
     line-height: 100px;
-    margin-top: 0px;
+    margin-top: 0;
     padding-top: 7px;
     padding-bottom: 7px;
 }
@@ -100,11 +91,6 @@ body {
 /* On small screens, set height to 'auto' for sidenav and grid */
 
 @media screen and (max-width: 767px) {
-    .sidenav {
-        height: auto;
-        padding: 15px;
-    }
-
     .row.content {
         height: auto;
     }

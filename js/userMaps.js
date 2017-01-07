@@ -37,7 +37,7 @@ function myMap() {
 
         var boatMarker = new google.maps.Marker();
         var infowindow = new google.maps.InfoWindow();
-        setNewestBoatMarker = function(x, lat, lon){
+        setNewestBoatMarker = function (x, lat, lon) {
             var datestring = (x.getDate() < 10 ? '0' : '') + x.getDate() + "." +
                 (x.getMonth() + 1 < 10 ? '0' : '') + (x.getMonth() + 1) + "." +
                 x.getFullYear() + " " +

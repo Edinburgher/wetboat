@@ -17,7 +17,7 @@ footer {
     margin-bottom: 5px;
 }
 
-@media(max-width:767px) {
+@media (max-width: 767px) {
     footer {
         position: relative;
     }

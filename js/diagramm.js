@@ -82,9 +82,9 @@ $(document).ready(function () {
                                                     series[i].addPoint([x.getTime(), y[i]], (i + 2 === series.length), true);
                                                 }
 
-                                                setNewestBoatMarker(x,measurement['lat_boat'], measurement['lon_boat']);
+                                                setNewestBoatMarker(x, measurement['lat_boat'], measurement['lon_boat']);
 
-                                                
+
                                             }
                                         },
                                         error: function (jqXHR, textStatus, errorThrown) {

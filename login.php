@@ -4,36 +4,37 @@ session_start();
 <!DOCTYPE html>
 <html lang="de">
 
-  <head>
+<head>
     <?php
-      include_once "php/head.php";
+    include_once "php/head.php";
     ?>
 
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/login.css">
     <script src="js/login.js"></script>
-  </head>
+</head>
 
-  <body>
+<body>
     <?php
-      include_once "php/nav.php";
+    include_once "php/nav.php";
     ?>
     <form id="loginForm" class="form-signin" method="POST">
-      <div class="alert alert-danger hidden" id="errorMessage">
-        <p></p>
-      </div>
-      <div id="txtLogin">Bitte melden Sie sich an!</div>
-      <input type="text" name="username" class="form-control input-lg" placeholder="Benutzername" required autofocus>
-      <input type="password" name="password" class="form-control input-lg" placeholder="Passwort" required>
+        <div class="alert alert-danger hidden" id="errorMessage">
+            <p></p>
+        </div>
+        <div id="txtLogin">Bitte melden Sie sich an!</div>
+        <input type="text" name="username" class="form-control input-lg" placeholder="Benutzername" required autofocus>
+        <input type="password" name="password" class="form-control input-lg" placeholder="Passwort" required>
 
-      <button class="btn btn-lg btn-primary btn-block" type="submit">
-        Anmelden</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">
+            Anmelden
+        </button>
 
     </form>
 
     <?php
-      include_once "php/footer.php";
+    include_once "php/footer.php";
     ?>
-  </body>
+</body>
 
 </html>

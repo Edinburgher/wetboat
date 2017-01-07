@@ -1,11 +1,9 @@
 <?php
 session_start();
-if(!isset($_SESSION['username']))
-{
+if (!isset($_SESSION['username'])) {
     die("forbidden");
 }
-if(empty($_POST['id']))
-{
+if (empty($_POST['id'])) {
     die(header("HTTP/1.1 500 id ist leer"));
 }
 require_once '../Db.php';

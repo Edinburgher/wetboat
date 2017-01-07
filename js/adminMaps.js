@@ -100,7 +100,6 @@ function myMap() {
         drawingManager.setMap(map);
 
 
-
         //Buttons above maps
         $(document).ready(function () {
 
@@ -167,8 +166,6 @@ function myMap() {
             });
         });
     });
-
-
 
 
 }

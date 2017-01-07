@@ -6,7 +6,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand"><img alt="Brand" src="img/Logo_website_new.png"></a>
+        <a class="navbar-brand" href="./"><img alt="Brand" src="img/Logo_website_new.png"></a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
@@ -17,7 +17,7 @@
               echo " class='active'";
           }
         ?>
-        ><a href="./index.php">Home</a>
+        ><a href="./">Home</a>
         </li>
         <li><a href="#">Über Uns</a></li>
         <li><a href="#">Projekt</a></li>
@@ -27,19 +27,19 @@
         <?php
             if(isset($_SESSION['username'])){
                 if($filename === "login.php")
-                  echo "<script>window.location.href = './admin.php';</script>";
+                  echo "<script>window.location.href = './admin';</script>";
                 echo "<li><a id='txtSession'>Herzlich Willkommen, ".$_SESSION['username']."!</a></li>";
                 echo "<li";
                 if($filename === "admin.php")
                     echo " class='active'";
                 
-                echo "><a href='./admin.php' id='btnLogin'>Admin</a></li>";
-                echo "<li><a href='php/logout.php' id='btnLogin'><span class='glyphicon glyphicon-log-out'></span> Abmelden</a></li>";
+                echo "><a href='./admin' id='btnLogin'>Admin</a></li>";
+                echo "<li><a href='php/logout' id='btnLogin'><span class='glyphicon glyphicon-log-out'></span> Abmelden</a></li>";
             } else {
                 echo "<li";
                 if($filename === "login.php")
                     echo " class='active'";
-                echo "><a href='./login.php' id='btnLogin'><span class='glyphicon glyphicon-log-in'></span> Anmelden</a></li>";
+                echo "><a href='./login' id='btnLogin'><span class='glyphicon glyphicon-log-in'></span> Anmelden</a></li>";
             }
         ?>
         </ul>

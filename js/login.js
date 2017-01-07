@@ -11,7 +11,7 @@ $(document).ready(function () {
             data: f.serialize(),
             success: function (data) {
                 //alert(data);
-                window.location.href = './admin.php';
+                window.location.href = './admin';
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 //alert(thrownError);

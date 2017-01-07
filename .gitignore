@@ -3,3 +3,4 @@
 .*
 maps.html
 *.csv
+!.htaccess

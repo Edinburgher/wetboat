@@ -1,7 +1,7 @@
 <?php
 
 //https://www.binpress.com/tutorial/using-php-with-mysql-the-right-way/17
-class Db
+class WetboatDB
 {
     // The database connection
     protected static $connection;
@@ -9,7 +9,7 @@ class Db
     /**
      * Connect to the database
      *
-     * @return bool false on failure / mysqli MySQLi object instance on success
+     * @return bool|mysqli false on failure / mysqli MySQLi object instance on success
      */
     private function connect()
     {
@@ -39,7 +39,7 @@ class Db
     /**
      * Query the database
      *
-     * @param $query The query string
+     * @param string $query The query string
      * @return mixed The result of the mysqli::query() function
      */
     public function query($query)
@@ -67,8 +67,8 @@ class Db
     /**
      * Fetch rows from the database (SELECT query)
      *
-     * @param $query The query string
-     * @return bool False on failure / array Database rows on success
+     * @param string $query The query string
+     * @return bool|array False on failure / array Database rows on success
      */
     public function select($query)
     {

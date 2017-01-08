@@ -3,15 +3,10 @@ function myMap() {
     //load userPolygonCoords from database
     getUserCoords(function (polygonPoints) {
 
-        //local functions
-        function setSplinePath(path) {
-            courseBoat.setPath(bspline(path.getArray()));
-        }
-
         google.maps.Polygon.prototype.splineAndSetPath = function (path) {
             var arr = (Array.isArray(path)) ? (path) : (path.getArray());
             this.setPath(bspline(arr));
-        }
+        };
 
         google.maps.Polygon.prototype.changePath = function (path) {
             //http://stackoverflow.com/questions/4775722/check-if-object-is-array
@@ -23,7 +18,7 @@ function myMap() {
             google.maps.event.addListener(this.getPath(), 'insert_at', function () {
                 courseBoat.splineAndSetPath(this);
             });
-        }
+        };
 
         var polygonPointsSplined = bspline(polygonPoints);
 
@@ -86,6 +81,7 @@ function myMap() {
         google.maps.event.addListener(userPolygon.getPath(), 'insert_at', function () {
             courseBoat.splineAndSetPath(this);
         });
+
 
         //fires when new polygon is finished (Neue Route)
         google.maps.event.addListener(drawingManager, 'polygoncomplete', function (newPolygon) {
@@ -162,8 +158,6 @@ function myMap() {
             $("#btnCancel").click(function () {
                 $(".drawOption").addClass("hidden");
                 getUserCoords(function (userCoords) {
-                    //set listeners for new (old) path
-                    //updateUserPolygonPath(userCoords);
                     userPolygon.changePath(userCoords);
                     courseBoat.splineAndSetPath(userCoords);
                     map.setOptions({

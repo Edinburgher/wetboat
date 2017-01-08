@@ -19,7 +19,7 @@ $password_old = $rows[0]['hashed_password'];
 if (password_verify($user_password_old, $password_old)) {
     // Verified
     $hashAndSalt = password_hash($user_password_new, PASSWORD_BCRYPT);
-    $db->query("UPDATE users SET hashed_password='$hashAndSalt' where username=$username;");
+    $db->query("UPDATE users SET hashed_password='$hashAndSalt' WHERE username=$username;");
 } else {
     die(header("HTTP/1.1 500 Falsches Passwort"));
 }

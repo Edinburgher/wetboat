@@ -9,9 +9,8 @@ $(document).ready(function () {
             type: 'POST',
             url: "php/login.php",
             data: f.serialize(),
-            success: function (data) {
-                //alert(data);
-                window.location.href = './admin';
+            success: function () {
+                window.location.href = '/admin';
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 $("#errorMessage").fadeIn().removeClass('hidden')
@@ -21,3 +20,4 @@ $(document).ready(function () {
         });
     });
 });
+

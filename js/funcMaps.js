@@ -1,8 +1,14 @@
+/**
+ *
+ * @param userCoords
+ * @param splineCoords
+ */
 function writeCoords(userCoords, splineCoords) {
     var strWrite = "";
     splineCoords.forEach(function (entry) {
-        strWrite = strWrite + entry.lat().toFixed(6) + "," + entry.lng().toFixed(6) + "\n";
+        strWrite += entry.lat().toFixed(6) + "," + entry.lng().toFixed(6) + "\n";
     });
+
 
     //saves the coords to splineCoords.txt
     $.post("php/users/saveSplineCoords.php", {

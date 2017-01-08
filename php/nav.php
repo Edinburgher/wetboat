@@ -6,7 +6,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="./"><img alt="Brand" src="/img/Logo_website_new.png"></a>
+            <a class="navbar-brand" href="/"><img alt="Brand" src="/img/Logo_website_new.png"></a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
@@ -17,7 +17,7 @@
                         echo " class='active'";
                     }
                     ?>
-                ><a href="./">Home</a>
+                ><a href="/">Home</a>
                 </li>
                 <li><a href="#">Über Uns</a></li>
                 <li><a href="#">Projekt</a></li>
@@ -27,7 +27,7 @@
                 <?php
                 if (isset($_SESSION['username'])) {
                     if ($filename === "login.php")
-                        echo "<script>window.location.href = './admin';</script>";
+                        echo "<script>window.location.href = '/admin';</script>";
                     echo "<li><a id='txtSession'>Herzlich Willkommen, " . $_SESSION['username'] . "!</a></li>";
                     echo "<li";
                     if ($filename === "admin.php")

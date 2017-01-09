@@ -31,7 +31,7 @@ if (!isset($_SESSION['username'])) {
                 <a type="button" class="btn btn-info" id="btnEdit">Route bearbeiten</a>
                 <a type="button" class="btn btn-success drawOption hidden" id="btnSave">Speichern</a>
                 <a type="button" class="btn btn-danger drawOption hidden" id="btnCancel">Abbrechen</a>
-                <div id="map" style="width:100%;height:450px;margin-top:10px"></div>
+                <div id="map" style="width:100%;height:450px;margin-top:10px;"></div>
             </div>
         </div>
         <div class="row content">

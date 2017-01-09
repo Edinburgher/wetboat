@@ -8,7 +8,6 @@ session_start();
     <?php
     include_once __DIR__ . "/php/head.php";
     ?>
-
     <script src="https://code.highcharts.com/stock/highstock.js"></script>
     <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
     <script src="js/delay.js"></script>

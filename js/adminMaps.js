@@ -3,36 +3,22 @@ function myMap() {
     //load userPolygonCoords from database
     getUserCoords(function (polygonPoints) {
 
-        //local functions
-        function setSplinePath(path) {
-            courseBoat.setPath(bspline(path.getArray()));
-        }
-
         google.maps.Polygon.prototype.splineAndSetPath = function (path) {
-            var arr = (Array.isArray(path))? (path):(path.getArray());
+            var arr = (Array.isArray(path)) ? (path) : (path.getArray());
             this.setPath(bspline(arr));
-        }
+        };
 
         google.maps.Polygon.prototype.changePath = function (path) {
             //http://stackoverflow.com/questions/4775722/check-if-object-is-array
-            var arr = (Array.isArray(path))? (path):(path.getArray());
-            this.getPath().getArray().length = 0;
-            arr.forEach((elem, i) => {
-                this.getPath().getArray().push(elem);
+            google.maps.event.clearInstanceListeners(this.getPath());
+            this.setPath(path);
+            google.maps.event.addListener(this.getPath(), 'set_at', function () {
+                courseBoat.splineAndSetPath(this);
             });
-        }
-
-        function updateUserPolygonPath(newPath) {
-            //delete listeners from old path
-            //google.maps.event.clearInstanceListeners(userPolygon.getPath());
-
-            //userPolygon is the one we can edit, so we need to just get the coordinates of the drawn polygon
-            //userPolygon.setPath(newPath);
-
-            //new listeners because they trigger on path, not on polygon object
-
-
-        }
+            google.maps.event.addListener(this.getPath(), 'insert_at', function () {
+                courseBoat.splineAndSetPath(this);
+            });
+        };
 
         var polygonPointsSplined = bspline(polygonPoints);
 
@@ -96,11 +82,13 @@ function myMap() {
             courseBoat.splineAndSetPath(this);
         });
 
+
         //fires when new polygon is finished (Neue Route)
         google.maps.event.addListener(drawingManager, 'polygoncomplete', function (newPolygon) {
             //exit drawing mode and delete drawn polygon
             drawingManager.setDrawingMode(null);
             newPolygon.setMap(null);
+            userPolygon.setMap(null);
 
             //updateUserPolygonPath(newPolygon.getPath());
             userPolygon.changePath(newPolygon.getPath());
@@ -137,10 +125,17 @@ function myMap() {
             //shows editable polygon
             $("#btnEdit").click(function () {
                 $(".drawOption").removeClass("hidden");
-                userPolygon.setMap(map);
-                map.setOptions({
-                    draggable: true,
-                    gestureHandling: 'greedy'
+                getUserCoords(function (userCoords) {
+                    //set listeners for new (old) path
+                    //updateUserPolygonPath(userCoords);
+                    userPolygon.setMap(null);
+                    userPolygon.changePath(userCoords);
+                    courseBoat.splineAndSetPath(userCoords);
+                    userPolygon.setMap(map);
+                    map.setOptions({
+                        draggable: true,
+                        gestureHandling: 'greedy'
+                    });
                 });
             });
 
@@ -163,8 +158,6 @@ function myMap() {
             $("#btnCancel").click(function () {
                 $(".drawOption").addClass("hidden");
                 getUserCoords(function (userCoords) {
-                    //set listeners for new (old) path
-                    //updateUserPolygonPath(userCoords);
                     userPolygon.changePath(userCoords);
                     courseBoat.splineAndSetPath(userCoords);
                     map.setOptions({

@@ -58,7 +58,7 @@ $(document).ready(function () {
                             var lastMeasurement = new Date(0);
 
                             getDelay(function (delayMS) {
-                                setInterval(function () {
+                                function getNewestMeasurements() {
                                     //Measurement data
                                     $.ajax({
                                         type: 'POST',
@@ -73,26 +73,33 @@ $(document).ready(function () {
 
                                             if (x > lastMeasurement) {
                                                 lastMeasurement = x;
-                                                y[0] = parseFloat(measurement['temperature_air']);
-                                                y[1] = parseFloat(measurement['temperature_water']);
-                                                y[2] = parseFloat(measurement['speed_wind']);
-                                                y[3] = parseFloat(measurement['speed_boat']);
+                                                var datestring = (x.getDate() < 10 ? '0' : '') + x.getDate() + "." +
+                                                    (x.getMonth() + 1 < 10 ? '0' : '') + (x.getMonth() + 1) + "." +
+                                                    x.getFullYear() + " " +
+                                                    (x.getHours() < 10 ? '0' : '') + x.getHours() + ":" +
+                                                    (x.getMinutes() < 10 ? '0' : '') + x.getMinutes() + ":" +
+                                                    (x.getSeconds() < 10 ? '0' : '') + x.getSeconds();
+                                                $('#time').html(datestring);
+                                                $('#airtemp').html(y[0] = parseFloat(measurement['temperature_air']));
+                                                $('#watertemp').html(y[1] = parseFloat(measurement['temperature_water']));
+                                                $('#windspeed').html(y[2] = parseFloat(measurement['speed_wind']));
+                                                $('#boatspeed').html(y[3] = parseFloat(measurement['speed_boat']));
 
                                                 for (var i = 0; i < series.length - 1; i++) {
                                                     series[i].addPoint([x.getTime(), y[i]], (i + 2 === series.length), true);
                                                 }
 
                                                 setNewestBoatMarker(x, measurement['lat_boat'], measurement['lon_boat']);
-
-
                                             }
                                         },
                                         error: function (jqXHR, textStatus, errorThrown) {
                                             console.log(errorThrown);
                                         }
                                     });
+                                }
 
-                                }, delayMS);
+                                getNewestMeasurements();
+                                setInterval(getNewestMeasurements, delayMS);
                             });
                         }
                     }

@@ -29,7 +29,7 @@ session_start();
     <div class="container-fluid">
         <div class="row content">
             <div class="col-sm-5 col-sm-offset-0">
-                <img id="liveImage" src="img/0.jpg?t=" class="img-responsive"/>
+                <img id="liveImage" src="img/0.jpg?<?php echo filemtime("img/0.jpg")?>" class="img-responsive"/>
                 <br>
                 <h4><b>Letzte Messung:</b></h4>
                 <table class="table table-bordered table-condensed table-responsive text-center">

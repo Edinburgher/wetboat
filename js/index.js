@@ -3,12 +3,13 @@ $(document).ready(function () {
     getDelay(function (delayMS) {
 
         //check for new images
-        var interval = setInterval(getNewLiveImg, delayMS);
+        let interval = setInterval(getNewLiveImg, delayMS);
+        const liveImg = $("#liveImage");
 
         //get new image, if not new -> do nothing and poll again
         function getNewLiveImg() {
             //get timestamp when the loaded img was last modified
-            var lastModified = $("#liveImage").attr("src").split('?').pop();
+            const lastModified = liveImg.attr("src").split('?').pop();
             $.ajax({
                 type: 'POST',
                 url: "php/getNewLiveImg.php",
@@ -18,15 +19,15 @@ $(document).ready(function () {
                 success: function (newModified) {
                     if (newModified !== "") {
                         //new img found --> start timer to measure time until loaded
-                        var startTime = new Date().getTime();
+                        const startTime = new Date().getTime();
                         //no more polling needed atm
                         clearInterval(interval);
 
-                        $("#liveImage").prop("src", "img/0.jpg?" + newModified);
+                        liveImg.prop("src", "img/0.jpg?" + newModified);
 
                         //when new image ready
-                        $("#liveImage").on('load', function () {
-                            var loadtime = new Date().getTime() - startTime;
+                        liveImg.on('load', function () {
+                            const loadtime = new Date().getTime() - startTime;
 
                             //waited for $loadtime already --> time between refreshs at least $delayMS
                             setTimeout(getNewLiveImg, delayMS - loadtime);
@@ -36,7 +37,7 @@ $(document).ready(function () {
                     } else {
                         //no new img --> go back to checking every $delayMS
                         clearInterval(interval);
-                        $("#liveImage").off();
+                        liveImg.off();
                         interval = setInterval(getNewLiveImg, delayMS);
                     }
                 },

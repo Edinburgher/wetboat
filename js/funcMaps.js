@@ -1,10 +1,10 @@
 /**
  *
- * @param userCoords
- * @param splineCoords
+ * @param {Array.<google.maps.LatLng>} userCoords
  */
-function writeCoords(userCoords, splineCoords) {
-    var strWrite = "";
+function writeCoords(userCoords) {
+    let strWrite = "";
+    const splineCoords = bspline(userCoords);
     splineCoords.forEach(function (entry) {
         strWrite += entry.lat().toFixed(6) + "," + entry.lng().toFixed(6) + "\n";
     });
@@ -22,7 +22,6 @@ function writeCoords(userCoords, splineCoords) {
 }
 
 function getUserCoords(callback) {
-    var ret = [];
     $.ajax({
         type: 'POST',
         url: 'php/getPoints.php',
@@ -31,6 +30,7 @@ function getUserCoords(callback) {
         dataType: 'json',
         success: function (rows) {
             //rows is a [][]
+            const ret = [];
             rows.forEach(function (elem) {
                 ret.push(new google.maps.LatLng(elem[0], elem[1]));
             });
@@ -47,20 +47,25 @@ function makeArraySplinable(pathArray) {
     // https://johan.karlsteen.com/2011/07/30/improving-google-maps-polygons-with-b-splines/ 
     //funktionen mit array bzw Objekt sind in js call by reference http://stackoverflow.com/questions/6605640/javascript-by-reference-vs-by-value
     //copy array
-    var arr = pathArray.slice(0);
-    var element1 = arr[0];
-    var element2 = arr[1];
-    var elementLast = arr[arr.length - 1];
-    var elementBeforeLast = arr[arr.length - 2];
+    const arr = pathArray.slice(0);
+    const element1 = arr[0];
+    const element2 = arr[1];
+    const elementLast = arr[arr.length - 1];
+    const elementBeforeLast = arr[arr.length - 2];
 
     arr.push(element1, element2);
     arr.unshift(elementBeforeLast, elementLast);
     return arr;
 }
 
+/**
+ *
+ * @param inPoints
+ * @returns {Array.<google.maps.LatLng>}
+ */
 function bspline(inPoints) {
-    var arr = makeArraySplinable(inPoints);
-    var i, t, ax, ay, bx, by, cx, cy, dx, dy, lat, lon, points;
+    const arr = makeArraySplinable(inPoints);
+    let i, t, ax, ay, bx, by, cx, cy, dx, dy, lat, lon, points;
     points = [];
     // For every point
     for (i = 2; i < arr.length - 2; i++) {

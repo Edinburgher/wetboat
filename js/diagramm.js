@@ -5,7 +5,7 @@ $(document).ready(function () {
             useUTC: false
         }
     });
-    var points = {};
+    const points = {};
     points['temperature_air'] = [];
     points['temperature_water'] = [];
     points['speed_wind'] = [];
@@ -23,8 +23,8 @@ $(document).ready(function () {
             //rows is [{}]
 
             rows.forEach(function (elem) {
-                var t = elem['time_measured'].split(/[- :]/);
-                var time_measured = new Date(Date.UTC(t[0], t[1] - 1, t[2], t[3], t[4], t[5])).getTime();
+                const t = elem['time_measured'].split(/[- :]/);
+                const time_measured = new Date(Date.UTC(t[0], t[1] - 1, t[2], t[3], t[4], t[5])).getTime();
                 points['temperature_air'].push([
                     time_measured, parseFloat(elem['temperature_air'])
                 ]);
@@ -52,10 +52,8 @@ $(document).ready(function () {
                     events: {
                         load: function () {
                             // set up the updating of the chart each second
-                            var series = this.series;
-                            var x;
-                            var y = [];
-                            var lastMeasurement = new Date(0);
+                            const series = this.series;
+                            let lastMeasurement = new Date(0);
 
                             getDelay(function (delayMS) {
                                 function getNewestMeasurements() {
@@ -68,14 +66,15 @@ $(document).ready(function () {
                                         dataType: 'json',
                                         success: function (measurement) {
                                             //data is {}
-                                            var t = measurement['time_measured'].split(/[- :]/);
-                                            x = new Date(Date.UTC(t[0], t[1] - 1, t[2], t[3], t[4], t[5]));
-
+                                            const t = measurement['time_measured'].split(/[- :]/);
+                                            const x = new Date(Date.UTC(t[0], t[1] - 1, t[2], t[3], t[4], t[5]));
+                                            const y = [];
                                             if (x > lastMeasurement) {
                                                 lastMeasurement = x;
-                                                var datestring = (x.getDate() < 10 ? '0' : '') + x.getDate() + "." +
+                                                const datestring =
+                                                    (x.getDate() < 10 ? '0' : '') + x.getDate() + "." +
                                                     (x.getMonth() + 1 < 10 ? '0' : '') + (x.getMonth() + 1) + "." +
-                                                    x.getFullYear() + " " +
+                                                    (x.getFullYear() + " ") +
                                                     (x.getHours() < 10 ? '0' : '') + x.getHours() + ":" +
                                                     (x.getMinutes() < 10 ? '0' : '') + x.getMinutes() + ":" +
                                                     (x.getSeconds() < 10 ? '0' : '') + x.getSeconds();
@@ -85,11 +84,11 @@ $(document).ready(function () {
                                                 $('#windspeed').html(y[2] = parseFloat(measurement['speed_wind']));
                                                 $('#boatspeed').html(y[3] = parseFloat(measurement['speed_boat']));
 
-                                                for (var i = 0; i < series.length - 1; i++) {
+                                                for (let i = 0; i < series.length - 1; i++) {
                                                     series[i].addPoint([x.getTime(), y[i]], (i + 2 === series.length), true);
                                                 }
 
-                                                setNewestBoatMarker(x, measurement['lat_boat'], measurement['lon_boat']);
+                                                setNewestBoatMarker(datestring, measurement['lat_boat'], measurement['lon_boat']);
                                             }
                                         },
                                         error: function (jqXHR, textStatus, errorThrown) {

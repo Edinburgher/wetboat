@@ -9,7 +9,7 @@ $(document).ready(function () {
     $('#delayForm').submit(function (event) {
         //stop page from reloading after submit
         event.preventDefault();
-        var f = $('#delayForm');
+        const f = $('#delayForm');
         $.ajax({
             type: "POST",
             url: "php/users/setDelay.php",
@@ -34,7 +34,7 @@ $(document).ready(function () {
     //listener listens to all elements which have userid attributes (delete user)
     //deletes user with id which was clicked
     $('body').on("click", '[userid]', function () {
-        var userid = $(this).attr("userid");
+        const userid = $(this).attr("userid");
 
         $.ajax({
             type: "POST",
@@ -58,7 +58,7 @@ $(document).ready(function () {
     $('#userForm').submit(function () {
         //stop page from reloading after submit
         event.preventDefault();
-        var f = $("#userForm");
+        const f = $("#userForm");
         $.ajax({
             type: "POST",
             url: "php/users/createUser.php",
@@ -84,7 +84,7 @@ $(document).ready(function () {
     $('#changePwdForm').submit(function () {
         //stop page from reloading after submit
         event.preventDefault();
-        var f = $("#changePwdForm");
+        const f = $("#changePwdForm");
         $.ajax({
             type: "POST",
             url: "php/users/changePassword.php",

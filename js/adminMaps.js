@@ -4,7 +4,7 @@ function myMap() {
     getUserCoords(function (polygonPoints) {
 
         google.maps.Polygon.prototype.splineAndSetPath = function (path) {
-            var arr = (Array.isArray(path)) ? (path) : (path.getArray());
+            const arr = (Array.isArray(path)) ? (path) : (path.getArray());
             this.setPath(bspline(arr));
         };
 
@@ -20,19 +20,18 @@ function myMap() {
             });
         };
 
-        var polygonPointsSplined = bspline(polygonPoints);
+        const polygonPointsSplined = bspline(polygonPoints);
 
         //DEBUG
         /*polygonPointsSplined.forEach(function (entry) {
             console.log(entry.lat().toFixed(6) + "," + entry.lng().toFixed(6));
         });*/
 
-        //Map init
-        var mapCanvas = document.getElementById("map");
+
 
         //https://trulycode.com/bytes/disable-google-maps-drag-zoom-mobile-iphone/
-        var isDraggable = !('ontouchstart' in document.documentElement);
-        var mapOptions = {
+        const isDraggable = !('ontouchstart' in document.documentElement);
+        const mapOptions = {
             center: polygonPointsSplined[0],
             zoom: 16,
 
@@ -41,10 +40,12 @@ function myMap() {
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             gestureHandling: 'auto'
         };
-        var map = new google.maps.Map(mapCanvas, mapOptions);
+        //Map init
+        const mapCanvas = document.getElementById("map");
+        const map = new google.maps.Map(mapCanvas, mapOptions);
 
         //Set course of the Boat as Polygon
-        var courseBoat = new google.maps.Polygon({
+        const courseBoat = new google.maps.Polygon({
             path: polygonPointsSplined,
             strokeColor: "#0000FF",
             strokeOpacity: 1,
@@ -54,7 +55,7 @@ function myMap() {
         });
 
         //init drawing overlay
-        var drawingManager = new google.maps.drawing.DrawingManager({
+        const drawingManager = new google.maps.drawing.DrawingManager({
             drawingControl: false,
             drawingControlOptions: {
                 position: google.maps.ControlPosition.TOP_CENTER,
@@ -65,7 +66,7 @@ function myMap() {
         });
 
         //Polygon that isn't splined
-        var userPolygon = new google.maps.Polygon({
+        const userPolygon = new google.maps.Polygon({
             path: polygonPoints,
             strokeOpacity: 0.7,
             strokeWeight: 2,
@@ -141,9 +142,7 @@ function myMap() {
 
             //saves new coords to splineCoords.txt and DB
             $("#btnSave").click(function () {
-                var userCoords = userPolygon.getPath().getArray();
-                var splinedCoords = bspline(userCoords);
-                writeCoords(userCoords, splinedCoords);
+                writeCoords(userPolygon.getPath().getArray());
 
                 //hide save and cancel buttons
                 $(".drawOption").addClass("hidden");

@@ -11,19 +11,13 @@ if ($vEmpty->validate($_SESSION['username'])) {
     exit;
 }
 
-if ($vEmpty->validate($_POST['delay']) or v::numeric()->validate($_POST['delay'])) {
-    die(header("HTTP/1.1 500 Bitte geben Sie eine Zahl ein."));
+if ($vEmpty->validate($_POST['delay']) or !v::numeric()->validate($_POST['delay'])) {
+    header("HTTP/1.1 500 Not Numeric");
+    echo "Bitte geben Sie eine Zahl ein.";
+    exit;
 }
 $delay = $_POST['delay'];
 
 $db = new MysqliDb();
 $db->update("settings", array("delay" => $delay));
-
-/*
-require_once '../WetboatDB.php';
-$db = new WetboatDB();
-$db->quote($delay);
-$db->query("UPDATE settings SET delay=$delay;");
 echo $delay;
-
-*/

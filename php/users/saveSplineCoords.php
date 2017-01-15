@@ -10,7 +10,9 @@ if ($vEmpty->validate($_SESSION['username'])) {
     exit;
 }
 if ($vEmpty->validate($_POST['data'])) {
-    die(header("HTTP/1.1 500 data ist leer"));
+    header("HTTP/1.1 500 data empty");
+    echo "data ist leer";
+    exit;
 }
 $data = $_POST['data'];
 //set mode of file to writable.

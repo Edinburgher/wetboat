@@ -6,12 +6,14 @@ require_once 'MysqliDb.php';
 use Respect\Validation\Validator as v;
 
 if (!v::notEmpty()->alnum()->length(1, 40)->validate($_POST['username'])) {
-    header("HTTP/1.1 500 Benutzername ungültig. Nur Buchstaben von A bis Z und Zahlen zulässig.");
+    header("HTTP/1.1 500 username invalid");
+    echo "Benutzername ungültig. Nur Buchstaben von A bis Z und Zahlen zulässig.";
     exit;
 }
 
 if (!v::notEmpty()->validate(($_POST['password']))) {
-    header("HTTP/1.1 500 Passwort leer");
+    header("HTTP/1.1 500 empty password");
+    echo "Passwort leer";
     exit;
 }
 $username = $_POST['username'];
@@ -27,7 +29,9 @@ try {
         $_SESSION['username'] = $userdata['username'];
         echo "Anmeldung erfolgreich, " . $_SESSION['username'] . "!";
     } else {
-        die(header("HTTP/1.1 500 Falsches Passwort"));
+        header("HTTP/1.1 500 wrong password ");
+        echo "Passwort falsch";
+        exit;
     }
 
     echo json_encode($rows);

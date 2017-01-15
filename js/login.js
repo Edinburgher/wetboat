@@ -14,7 +14,7 @@ $(document).ready(function () {
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 $("#errorMessage").fadeIn().removeClass('hidden')
-                    .find("> p").text(thrownError);
+                    .find("> p").text(xhr.responseText);
                 $(".form-control").val('');
             }
         });

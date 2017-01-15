@@ -11,7 +11,9 @@ if ($vEmpty->validate($_SESSION['username'])) {
     exit;
 }
 if ($vEmpty->validate($_POST['id'])) {
-    die(header("HTTP/1.1 500 id ist leer"));
+    header("HTTP/1.1 500 empty id");
+    echo "id ist leer";
+    exit;
 }
 
 try {

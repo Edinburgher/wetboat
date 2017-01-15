@@ -16,25 +16,22 @@ if ($vEmpty->validate($_POST['username']) or $vEmpty->validate($_POST['password'
 }
 
 if (!v::notEmpty()->alnum()->length(1, 40)->validate($_POST['username'])) {
-    header("HTTP/1.1 500 Internal Server Error");
+    header("HTTP/1.1 500 username invalid");
     echo "Benutzername ungültig. Nur Buchstaben von A bis Z und Zahlen zulässig.";
     exit;
 }
-
-$db = new MysqliDb();
-$username = $_POST['username'];
-$password = $_POST['password'];
 
 try {
     $db = new MysqliDb();
     $username = $_POST['username'];
     $password = $_POST['password'];
     $userdata = $db->where('username', $username)->getOne("users");
-    if($db->getLastErrno()!== 0){
-        header("HTTP/1.1 500 Benutzer existiert bereits");
+    if($userdata){
+        header("HTTP/1.1 500 user already exists");
+        echo "Benutzer existiert bereits";
         exit;
     }
-    $hashAndSalt = password_hash($user_password_new, PASSWORD_BCRYPT);
+    $hashAndSalt = password_hash($password, PASSWORD_BCRYPT);
     $db->insert("users", array('username' => $username, 'hashed_password' => $hashAndSalt));
 } catch (Exception $e) {
     header("HTTP/1.1 500 Internal Server Error");

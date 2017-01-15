@@ -11,7 +11,9 @@ if ($vEmpty->validate($_SESSION['username'])) {
     exit;
 }
 if ($vEmpty->validate($_POST['oldPassword']) or $vEmpty->validate($_POST['newPassword'])) {
-    die(header("HTTP/1.1 500 Passwort darf nicht leer sein"));
+    header("HTTP/1.1 500 Password empty");
+    echo "Passwort darf nicht leer sein";
+    exit;
 }
 
 $username = $_SESSION['username'];
@@ -28,7 +30,8 @@ try {
 
         echo 'Passwortänderung erfolgreich!';
     } else {
-        header("HTTP/1.1 500 Falsches Passwort");
+        header("HTTP/1.1 500 Wrong Password");
+        echo "Falsches Passwort";
         exit;
     }
 } catch (Exception $e) {

@@ -11,7 +11,9 @@ if ($vEmpty->validate($_SESSION['username'])) {
     exit;
 }
 if ($vEmpty->validate($_POST['userCoords'])) {
-    die(header("HTTP/1.1 500 userCoords ist leer"));
+    header("HTTP/1.1 500 userCoords empty");
+    echo "userCoords ist leer";
+    exit;
 }
 
 $db = new MysqliDb();

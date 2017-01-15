@@ -21,7 +21,7 @@ $(document).ready(function () {
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 $("#delayForm")[0].reset();
-                $("#divSubmit").html(" " + thrownError);
+                $("#divSubmit").html(" " + xhr.responseText);
             }
         });
     });
@@ -47,9 +47,9 @@ $(document).ready(function () {
                 });
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                console.log(thrownError);
+                console.log(xhr.responseText);
                 $("#alertUserForm").fadeIn().removeClass('hidden')
-                    .find("> p").text(thrownError);
+                    .find("> p").text(xhr.responseText);
             }
         });
     });
@@ -74,7 +74,6 @@ $(document).ready(function () {
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 $("#userForm")[0].reset();
-                //TODO: überall xhr.responseText hin
                 $("#alertUserForm").fadeIn().removeClass('hidden')
                     .find("> p").text(xhr.responseText);
             }
@@ -103,7 +102,7 @@ $(document).ready(function () {
             error: function (xhr, ajaxOptions, thrownError) {
                 $("#changePwdForm")[0].reset();
                 $("#alertChangePwdForm").fadeIn().removeClass('hidden').addClass('alert-danger')
-                    .find("> p").text(thrownError);
+                    .find("> p").text(xhr.responseText);
             }
         });
     });

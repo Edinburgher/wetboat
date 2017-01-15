@@ -1,10 +1,14 @@
 <?php
-require_once 'WetboatDB.php';
+require_once 'MysqliDb.php';
 
-$db = new WetboatDB();
+try {
+    $db = new MysqliDb();
+    $rows = $db->orderBy("time_measured", "DESC")->get("measurements", 20);
 
-$rows = $db->select("SELECT * FROM 
-        (SELECT * FROM measurements ORDER BY time_measured DESC LIMIT 20)test 
-        ORDER BY time_measured;") or die(header("HTTP/1.1 500 Keine Messdaten vorhanden"));
-echo json_encode($rows);        
-
+    //the latest 20 measurements, but sorted ASC
+    $measurements = array_reverse($rows);
+    echo json_encode($measurements);
+} catch (Exception $e) {
+    header("HTTP/1.1 500 Internal Server Error");
+    exit;
+}

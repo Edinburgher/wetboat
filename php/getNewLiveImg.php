@@ -1,7 +1,10 @@
 <?php
+require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+use Respect\Validation\Validator as v;
 
-if (empty($_POST['lastModified']) or !is_numeric($_POST['lastModified'])) {
-    die(header("HTTP/1.1 500 lastModified is not a number"));
+if (!v::notEmpty()->numeric()->validate($_POST['lastModified'])) {
+    header("HTTP/1.1 500 lastModified is not a number");
+    exit;
 }
 
 $lastModified = $_POST['lastModified'];

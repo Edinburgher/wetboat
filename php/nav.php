@@ -26,9 +26,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <?php
                 if (isset($_SESSION['username'])) {
-                    if ($filename === "login.php")
-                        echo "<script>window.location.href = '/admin';</script>";
-                    echo "<li><a id='txtSession'>Herzlich Willkommen, " . $_SESSION['username'] . "!</a></li>";
+                    echo "<li><a id='txtSession'>Herzlich Willkommen, " . htmlspecialchars($_SESSION['username']) . "!</a></li>";
                     echo "<li";
                     if ($filename === "admin.php")
                         echo " class='active'";

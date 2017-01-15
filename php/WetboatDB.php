@@ -21,7 +21,7 @@ class WetboatDB
             //http://stackoverflow.com/questions/15553496/new-mysqli-how-to-intercept-an-unable-to-connect-error
             mysqli_report(MYSQLI_REPORT_STRICT);
             try {
-                self::$connection = new mysqli($host, $user, $pwd, $db);
+                self::$connection = new mysqli($host, $username, $password, $db);
             } catch (Exception $e) {
                 die(header("HTTP/1.1 500 SQL Server offline"));
             }

@@ -220,10 +220,12 @@ class MysqliDb
     public $totalPages = 0;
 
     /**
+     * modified
+     *
      */
     public function __construct()
     {
-        require_once $_SERVER["DOCUMENT_ROOT"] . '/php/config.php';
+        require $_SERVER["DOCUMENT_ROOT"] . '/php/config.php';
         $isSubQuery = false;
 
         // if params were passed as array

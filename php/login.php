@@ -1,23 +1,37 @@
 <?php
 session_start();
-if (empty($_POST['username']) or empty($_POST['password'])) {
-    die(header("HTTP/1.1 500 Benutzername oder Passwort leer"));
+require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+require_once 'MysqliDb.php';
+
+use Respect\Validation\Validator as v;
+
+if (!v::notEmpty()->alnum()->length(1, 40)->validate($_POST['username'])) {
+    header("HTTP/1.1 500 Benutzername ungültig. Nur Buchstaben von A bis Z und Zahlen zulässig.");
+    exit;
 }
 
-require_once 'WetboatDB.php';
-
-$db = new WetboatDB();
-
-$username = $db->quote($_POST['username']);
+if (!v::notEmpty()->validate(($_POST['password']))) {
+    header("HTTP/1.1 500 Passwort leer");
+    exit;
+}
+$username = $_POST['username'];
 $password = $_POST['password'];
-$rows = $db->select("SELECT * FROM users WHERE username=$username;") or die(header("HTTP/1.1 500 Benutzer existiert nicht"));
 
-$userdata = $rows[0];
-$hashAndSalt = $userdata['hashed_password'];
-if (password_verify($password, $hashAndSalt)) {
-    // Verified
-    $_SESSION['username'] = $userdata['username'];
-    echo "Anmeldung erfolgreich, " . $_SESSION['username'] . "!";
-} else {
-    die(header("HTTP/1.1 500 Falsches Passwort"));
+try {
+    $db = new MysqliDb();
+    $userdata = $db->where('username', $username)->getOne("users");
+
+    $hashAndSalt = $userdata['hashed_password'];
+    if (password_verify($password, $hashAndSalt)) {
+        // Verified
+        $_SESSION['username'] = $userdata['username'];
+        echo "Anmeldung erfolgreich, " . $_SESSION['username'] . "!";
+    } else {
+        die(header("HTTP/1.1 500 Falsches Passwort"));
+    }
+
+    echo json_encode($rows);
+} catch (Exception $e) {
+    header("HTTP/1.1 500 Internal Server Error");
+    exit;
 }

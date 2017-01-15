@@ -1,8 +1,13 @@
 <?php
 require_once 'MysqliDb.php';
-use Respect\Validation\Validator as v;
 
-$db2 = new MysqliDb();
-$delay = $db2->getOne("settings", "delay")['delay'];
-echo(json_encode($delay));
+try {
+    $db = new MysqliDb();
+    $row = $db->getOne("settings", "delay");
 
+    $delay = $row['delay'];
+    echo(json_encode($delay));
+} catch (Exception $e) {
+    header("HTTP/1.1 500 Internal Server Error");
+    exit;
+}

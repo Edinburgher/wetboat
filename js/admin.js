@@ -74,8 +74,9 @@ $(document).ready(function () {
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 $("#userForm")[0].reset();
+                //TODO: überall xhr.responseText hin
                 $("#alertUserForm").fadeIn().removeClass('hidden')
-                    .find("> p").text(thrownError);
+                    .find("> p").text(xhr.responseText);
             }
         });
     });

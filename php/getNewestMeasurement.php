@@ -1,7 +1,12 @@
 <?php
-require_once 'WetboatDB.php';
+require_once 'MysqliDb.php';
 
-$db = new WetboatDB();
+try {
+    $db = new MysqliDb();
+    $row = $db->orderBy("time_measured", "DESC")->getOne("measurements");
 
-$rows = $db->select("SELECT * FROM `V_NEWEST_MEASUREMENT`;") or die(header("HTTP/1.1 500 Keine Messdaten vorhanden"));
-echo(json_encode($rows[0]));
+    echo json_encode($row);
+} catch (Exception $e) {
+    header("HTTP/1.1 500 Internal Server Error");
+    exit;
+}

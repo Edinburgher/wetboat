@@ -43,6 +43,10 @@ $(document).ready(function () {
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     console.log(thrownError);
+                    //no new img --> go back to checking every $delayMS
+                    clearInterval(interval);
+                    liveImg.off();
+                    interval = setInterval(getNewLiveImg, delayMS);
                 }
             });
         }

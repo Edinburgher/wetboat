@@ -27,7 +27,7 @@ try {
         echo "<tr>";
         echo "<td>" . htmlspecialchars($row['ID']) . "</td>";
         echo "<td>" . htmlspecialchars($row['username']) . "</td>";
-        if ($_SESSION['username'] === 'admin' and $_SESSION['username'] !== $row['username']) {
+        if ($_SESSION['username'] === 'admin' and $_SESSION['username'] !== $row['username'] && false) {
             echo "<td><a type='button' class='btn btn-danger' userid=" . htmlspecialchars($row['ID']) . ">Löschen</a></td>";
         } else {
             echo "<td>Mehr Rechte nötig</td>";

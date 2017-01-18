@@ -38,8 +38,8 @@ session_start();
                         <th class="text-center">Zeit</th>
                         <th class="text-center">Luft [°C]</th>
                         <th class="text-center">Wasser [°C]</th>
-                        <th class="text-center">Wind [km/h]</th>
-                        <th class="text-center">Boot [km/h]</th>
+                        <th class="text-center">Luftfeuchte [%]</th>
+                        <th class="text-center">Luftdruck [hPa]</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -47,8 +47,8 @@ session_start();
                         <td id="time"></td>
                         <td id="airtemp"></td>
                         <td id="watertemp"></td>
-                        <td id="windspeed"></td>
-                        <td id="boatspeed"></td>
+                        <td id="airpressure"></td>
+                        <td id="airhumidity"></td>
                     </tr>
                     </tbody>
                 </table>

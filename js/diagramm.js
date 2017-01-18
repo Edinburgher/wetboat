@@ -6,10 +6,16 @@ $(document).ready(function () {
         }
     });
     const points = {};
+    //luft temp
+    //wasser temp
+    //luftdruck
+    //luftfeuchte
     points['temperature_air'] = [];
     points['temperature_water'] = [];
     points['speed_wind'] = [];
     points['speed_boat'] = [];
+    points['pressure_air'] = [];
+    points['humidity_air'] = [];
     points['lat_boat'] = [];
     points['lon_boat'] = [];
 
@@ -36,6 +42,12 @@ $(document).ready(function () {
                 ]);
                 points['speed_boat'].push([
                     time_measured, parseFloat(elem['speed_boat'])
+                ]);
+                points['pressure_air'].push([
+                    time_measured, parseFloat(elem['pressure_air'])
+                ]);
+                points['humidity_air'].push([
+                    time_measured, parseFloat(elem['humidity_air'])
                 ]);
                 points['lat_boat'].push([
                     time_measured, parseFloat(elem['lat_boat'])
@@ -81,8 +93,8 @@ $(document).ready(function () {
                                                 $('#time').html(datestring);
                                                 $('#airtemp').html(y[0] = parseFloat(measurement['temperature_air']));
                                                 $('#watertemp').html(y[1] = parseFloat(measurement['temperature_water']));
-                                                $('#windspeed').html(y[2] = parseFloat(measurement['speed_wind']));
-                                                $('#boatspeed').html(y[3] = parseFloat(measurement['speed_boat']));
+                                                $('#airpressure').html(y[2] = parseFloat(measurement['pressure_air']));
+                                                $('#airhumidity').html(y[3] = parseFloat(measurement['humidity_air']));
 
                                                 for (let i = 0; i < series.length - 1; i++) {
                                                     series[i].addPoint([x.getTime(), y[i]], (i + 2 === series.length), true);
@@ -145,13 +157,30 @@ $(document).ready(function () {
                     title: {
                         text: 'Luftfeuchte',
                         style: {
-                            "color": "blue"
+                            "color": Highcharts.getOptions().colors[6]
                         }
                     },
                     labels: {
                         format: '{value} %',
                         style: {
-                            color: Highcharts.getOptions().colors[0]
+                            color: Highcharts.getOptions().colors[6]
+                        }
+                    },
+                    opposite: true
+                }, { // 4th yAxis
+                    id: 'axisPressure',
+                    gridLineWidth: 0,
+                    showEmpty: false,
+                    title: {
+                        text: 'Luftdruck',
+                        style: {
+                            "color": Highcharts.getOptions().colors[4]
+                        }
+                    },
+                    labels: {
+                        format: '{value} hPa',
+                        style: {
+                            color: Highcharts.getOptions().colors[4]
                         }
                     },
                     opposite: true
@@ -210,20 +239,20 @@ $(document).ready(function () {
                         valueSuffix: ' °C'
                     }
                 }, {
-                    name: 'Windgeschwindigkeit',
-                    data: points['speed_wind'],
-                    yAxis: 'axisSpeed',
+                    name: 'Luftdruck',
+                    data: points['pressure_air'],
+                    yAxis: 'axisPressure',
                     color: Highcharts.getOptions().colors[4],
                     tooltip: {
-                        valueSuffix: ' km/h'
+                        valueSuffix: ' hPa'
                     }
                 }, {
-                    name: 'Bootsgeschwindigkeit',
-                    data: points['speed_boat'],
-                    yAxis: 'axisSpeed',
+                    name: 'Luftfeuchtigkeit',
+                    data: points['humidity_air'],
+                    yAxis: 'axisPercent',
                     color: Highcharts.getOptions().colors[6],
                     tooltip: {
-                        valueSuffix: ' km/h'
+                        valueSuffix: ' %'
                     }
                 }]
             });

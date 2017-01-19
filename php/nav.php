@@ -19,9 +19,9 @@
                     ?>
                 ><a href="/">Home</a>
                 </li>
-                <li><a href="#">Über Uns</a></li>
+                <!--<li><a href="#">Über Uns</a></li>
                 <li><a href="#">Projekt</a></li>
-                <li><a href="#">Kontakt</a></li>
+                <li><a href="#">Kontakt</a></li>-->
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <?php

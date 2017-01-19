@@ -38,8 +38,8 @@ session_start();
                         <th class="text-center">Zeit</th>
                         <th class="text-center">Luft [°C]</th>
                         <th class="text-center">Wasser [°C]</th>
-                        <th class="text-center">Luftfeuchte [%]</th>
                         <th class="text-center">Luftdruck [hPa]</th>
+                        <th class="text-center">Luftfeuchte [%]</th>
                     </tr>
                     </thead>
                     <tbody>

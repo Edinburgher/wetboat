@@ -121,7 +121,7 @@ $(document).ready(function () {
                     gridLineWidth: 1,
                     showEmpty: false,
                     labels: {
-                        enabled: true,
+                        enabled: ($(window).width() > 1000),
                         format: '{value}°C',
                         style: {
                             color: Highcharts.getOptions().colors[5]
@@ -146,7 +146,7 @@ $(document).ready(function () {
                         }
                     },
                     labels: {
-                        enabled: true,
+                        enabled: ($(window).width() > 1000),
                         format: '{value}km/h',
                         style: {
                             color: Highcharts.getOptions().colors[0]
@@ -164,7 +164,7 @@ $(document).ready(function () {
                         }
                     },
                     labels: {
-                        enabled: true,
+                        enabled: ($(window).width() > 1000),
                         format: '{value}%',
                         style: {
                             color: Highcharts.getOptions().colors[6]
@@ -182,7 +182,7 @@ $(document).ready(function () {
                         }
                     },
                     labels: {
-                        enabled: true,
+                        enabled: ($(window).width() > 1000),
                         format: '{value}hPa',
                         style: {
                             color: Highcharts.getOptions().colors[4]
@@ -268,6 +268,24 @@ $(document).ready(function () {
                         valueSuffix: '%'
                     }
                 }]
+            });
+
+            function enableLabels(enable) {
+                const chart = $('#container').highcharts();
+                const yAxis = chart.yAxis;
+                for (let i = 0; i < yAxis.length - 1; i++) {
+                    yAxis[i].userOptions.labels.enabled = enable;
+                    yAxis[i].update();
+                }
+            }
+            
+            $(window).resize(function() {
+                if ($(window).width() < 960) {
+                    enableLabels(false);
+                }
+                else {
+                    enableLabels(true);
+                }
             });
         }
     });

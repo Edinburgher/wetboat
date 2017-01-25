@@ -29,33 +29,43 @@ session_start();
     <div class="container-fluid">
         <div class="row content">
             <div class="col-sm-5 col-sm-offset-0">
-                <img id="liveImage" src="img/0.jpg?<?php echo filemtime("img/0.jpg")?>" class="img-responsive"/>
+                <img id="liveImage" src="img/0.jpg?<?php echo filemtime("img/0.jpg") ?>" class="img-responsive"/>
                 <br>
-                <h4><b>Letzte Messung:</b></h4>
-                <table class="table table-bordered table-condensed table-responsive text-center">
-                    <thead>
-                    <tr>
-                        <th class="text-center">Zeit</th>
-                        <th class="text-center">Luft [°C]</th>
-                        <th class="text-center">Wasser [°C]</th>
-                        <th class="text-center">Luftdruck [hPa]</th>
-                        <th class="text-center">Luftfeuchte [%]</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td id="time"></td>
-                        <td id="airtemp"></td>
-                        <td id="watertemp"></td>
-                        <td id="airpressure"></td>
-                        <td id="airhumidity"></td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Letzte Messung</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-condensed text-center">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">Zeit</th>
+                                    <th class="text-center">Luft [°C]</th>
+                                    <th class="text-center">Wasser [°C]</th>
+                                    <th class="text-center">Windgeschw. [km/h]</th>
+                                    <th class="text-center">Luftdruck [hPa]</th>
+                                    <th class="text-center">Luftfeuchte [%]</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td id="time"></td>
+                                    <td id="airtemp"></td>
+                                    <td id="watertemp"></td>
+                                    <td id="windspeed"></td>
+                                    <td id="airpressure"></td>
+                                    <td id="airhumidity"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
+
             <div class="col-sm-7">
                 <div id="container"></div>
-
             </div>
         </div>
         <div class="row content">

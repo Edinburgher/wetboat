@@ -93,8 +93,9 @@ $(document).ready(function () {
                                                 $('#time').html(datestring);
                                                 $('#airtemp').html(y[0] = parseFloat(measurement['temperature_air']));
                                                 $('#watertemp').html(y[1] = parseFloat(measurement['temperature_water']));
-                                                $('#airpressure').html(y[2] = parseFloat(measurement['pressure_air']));
-                                                $('#airhumidity').html(y[3] = parseFloat(measurement['humidity_air']));
+                                                $('#windspeed').html(y[2] = parseFloat(measurement['speed_wind']));
+                                                $('#airpressure').html(y[3] = parseFloat(measurement['pressure_air']));
+                                                $('#airhumidity').html(y[4] = parseFloat(measurement['humidity_air']));
 
                                                 for (let i = 0; i < series.length - 1; i++) {
                                                     series[i].addPoint([x.getTime(), y[i]], (i + 2 === series.length), true);
@@ -120,6 +121,7 @@ $(document).ready(function () {
                     gridLineWidth: 1,
                     showEmpty: false,
                     labels: {
+                        enabled: true,
                         format: '{value}°C',
                         style: {
                             color: Highcharts.getOptions().colors[5]
@@ -144,7 +146,8 @@ $(document).ready(function () {
                         }
                     },
                     labels: {
-                        format: '{value} km/h',
+                        enabled: true,
+                        format: '{value}km/h',
                         style: {
                             color: Highcharts.getOptions().colors[0]
                         }
@@ -161,7 +164,8 @@ $(document).ready(function () {
                         }
                     },
                     labels: {
-                        format: '{value} %',
+                        enabled: true,
+                        format: '{value}%',
                         style: {
                             color: Highcharts.getOptions().colors[6]
                         }
@@ -178,7 +182,8 @@ $(document).ready(function () {
                         }
                     },
                     labels: {
-                        format: '{value} hPa',
+                        enabled: true,
+                        format: '{value}hPa',
                         style: {
                             color: Highcharts.getOptions().colors[4]
                         }
@@ -228,15 +233,23 @@ $(document).ready(function () {
                     yAxis: 'axisTemp',
                     color: Highcharts.getOptions().colors[5],
                     tooltip: {
-                        valueSuffix: ' °C'
+                        valueSuffix: '°C'
                     }
                 }, {
                     name: 'Wassertemperatur',
                     data: points['temperature_water'],
                     yAxis: 'axisTemp',
+                    color: Highcharts.getOptions().colors[5],
+                    tooltip: {
+                        valueSuffix: '°C'
+                    }
+                }, {
+                    name: 'Windgeschwindigkeit',
+                    data: points['speed_wind'],
+                    yAxis: 'axisSpeed',
                     color: Highcharts.getOptions().colors[0],
                     tooltip: {
-                        valueSuffix: ' °C'
+                        valueSuffix: 'km/h'
                     }
                 }, {
                     name: 'Luftdruck',
@@ -244,7 +257,7 @@ $(document).ready(function () {
                     yAxis: 'axisPressure',
                     color: Highcharts.getOptions().colors[4],
                     tooltip: {
-                        valueSuffix: ' hPa'
+                       valueSuffix: 'hPa'
                     }
                 }, {
                     name: 'Luftfeuchtigkeit',
@@ -252,7 +265,7 @@ $(document).ready(function () {
                     yAxis: 'axisPercent',
                     color: Highcharts.getOptions().colors[6],
                     tooltip: {
-                        valueSuffix: ' %'
+                        valueSuffix: '%'
                     }
                 }]
             });

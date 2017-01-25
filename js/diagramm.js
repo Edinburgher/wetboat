@@ -191,7 +191,8 @@ $(document).ready(function () {
                     opposite: true
                 }],
                 tooltip: {
-                    shared: true
+                    shared: true,
+                    valueDecimals: 1
                 },
                 rangeSelector: {
                     /*buttons: [{

@@ -3,7 +3,7 @@ require_once 'MysqliDb.php';
 
 try {
     $db = new MysqliDb();
-    $rows = $db->orderBy("time_measured", "DESC")->get("measurements", 20);
+    $rows = $db->orderBy("time_measured", "DESC")->get("measurements", 2000);
 
     //the latest 20 measurements, but sorted ASC
     $measurements = array_reverse($rows);

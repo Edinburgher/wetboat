@@ -278,7 +278,7 @@ $(document).ready(function () {
                     yAxis[i].update();
                 }
             }
-            
+
             $(window).resize(function() {
                 if ($(window).width() < 960) {
                     enableLabels(false);

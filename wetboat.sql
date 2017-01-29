@@ -20,8 +20,8 @@ CREATE TABLE measurements
   temperature_water DECIMAL(5, 2),
   speed_wind        DECIMAL(5, 2),
   speed_boat        DECIMAL(5, 2),
-  pressure_air		DECIMAL(8, 2),
-  humidity_air		DECIMAL(5, 2),
+  pressure_air      DECIMAL(8, 2),
+  humidity_air      DECIMAL(5, 2),
   lat_boat          DECIMAL(9, 6),
   lon_boat          DECIMAL(9, 6)
 )
@@ -58,7 +58,7 @@ DELETE FROM user_coords;
 DELETE FROM settings;
 
 INSERT INTO measurements (time_measured, temperature_air, temperature_water, pressure_air, humidity_air, speed_wind, speed_boat, lat_boat, lon_boat)
-VALUES (Now(), 23.23, 19.54,1200, 39, 5.34, 6.57, 47.789431, 13.051115);
+VALUES (Now(), 23.23, 19.54, 1200, 39, 5.34, 6.57, 47.789431, 13.051115);
 
 SELECT *
 FROM measurements;

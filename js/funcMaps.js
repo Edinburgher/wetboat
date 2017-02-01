@@ -22,14 +22,11 @@ function writeCoords(userCoords) {
 }
 
 function getUserCoords(callback) {
-    $.ajax({
-        type: 'POST',
-        url: 'php/getPoints.php',
-        data: "",
-        async: true,
-        dataType: 'json',
+    userAction({
+        data: "action=getPoints",
         success: function (rows) {
             //rows is a [][]
+            rows = JSON.parse(rows);
             const ret = [];
             rows.forEach(function (elem) {
                 ret.push(new google.maps.LatLng(elem[0], elem[1]));

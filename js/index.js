@@ -10,12 +10,8 @@ $(document).ready(function () {
         function getNewLiveImg() {
             //get timestamp when the loaded img was last modified
             const lastModified = liveImg.attr("src").split('?').pop();
-            $.ajax({
-                type: 'POST',
-                url: "php/getNewLiveImg.php",
-                data: {
-                    lastModified: lastModified
-                },
+            userAction({
+                data: "lastModified=" + lastModified +"&action=getNewLiveImg",
                 success: function (newModified) {
                     if (newModified !== "") {
                         //new img found --> start timer to measure time until loaded

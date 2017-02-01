@@ -5,10 +5,8 @@ $(document).ready(function () {
         const f = $("#loginForm");
 
         //not safe unless you're using https
-        $.ajax({
-            type: 'POST',
-            url: "php/login.php",
-            data: f.serialize(),
+        userAction({
+            data: f.serialize() + "&action=login",
             success: function () {
                 window.location.href = '/admin';
             },

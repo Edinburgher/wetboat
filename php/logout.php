@@ -1,5 +1,3 @@
 <?php
-session_start();
-session_destroy();
-echo "Abmeldung erfolgreich";
-header("Location: /");
+require_once "UserAction.php";
+UserAction::logout();

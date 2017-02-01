@@ -1,13 +1,10 @@
 function getDelay(callback) {
     if (isNaN(getDelay.delayMS)) {
-        $.ajax({
-            type: 'POST',
-            url: 'php/getDelay.php',
-            data: "",
-            async: true,
-            dataType: 'json',
+        userAction({
+            data: "action=getDelay",
             success: function (delay) {
                 //delay is an int
+                delay = JSON.parse(delay);
                 getDelay.delayMS = delay * 1000;
                 return callback(getDelay.delayMS);
             },

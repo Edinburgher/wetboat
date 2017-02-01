@@ -1,14 +1,4 @@
-//ajax prefinition
-function userAction(options) {
-    $.ajax({
-        type: "POST",
-        url: "php/userActionHandler.php",
-        data: options.data,
-        processData: false,
-        success: options.success,
-        error: options.error
-    });
-}
+
 $(document).ready(function () {
 
     //gets user table from SQL

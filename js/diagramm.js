@@ -19,15 +19,11 @@ $(document).ready(function () {
     points['lat_boat'] = [];
     points['lon_boat'] = [];
 
-    $.ajax({
-        type: 'POST',
-        url: 'php/getMeasurements.php',
-        data: "",
-        async: true,
-        dataType: 'json',
+    userAction({
+        data: "action=getMeasurements",
         success: function (rows) {
             //rows is [{}]
-
+            rows = JSON.parse(rows);
             rows.forEach(function (elem) {
                 const t = elem['time_measured'].split(/[- :]/);
                 const time_measured = new Date(Date.UTC(t[0], t[1] - 1, t[2], t[3], t[4], t[5])).getTime();
@@ -70,14 +66,11 @@ $(document).ready(function () {
                             getDelay(function (delayMS) {
                                 function getNewestMeasurements() {
                                     //Measurement data
-                                    $.ajax({
-                                        type: 'POST',
-                                        url: 'php/getNewestMeasurement.php',
-                                        data: "",
-                                        async: true,
-                                        dataType: 'json',
+                                    userAction({
+                                        data: "action=getNewestMeasurement",
                                         success: function (measurement) {
                                             //data is {}
+                                            measurement=JSON.parse(measurement);
                                             const t = measurement['time_measured'].split(/[- :]/);
                                             const x = new Date(Date.UTC(t[0], t[1] - 1, t[2], t[3], t[4], t[5]));
                                             const y = [];

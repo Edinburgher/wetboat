@@ -32,7 +32,7 @@
                         echo " class='active'";
 
                     echo "><a href='/admin' id='btnLogin'>Admin</a></li>";
-                    echo "<li><a href='/php/logout' id='btnLogin'><span class='glyphicon glyphicon-log-out'></span> Abmelden</a></li>";
+                    echo "<li><a href='/php/logout' id='btnLogout'><span class='glyphicon glyphicon-log-out'></span> Abmelden</a></li>";
                 } else {
                     echo "<li";
                     if ($filename === "login.php")

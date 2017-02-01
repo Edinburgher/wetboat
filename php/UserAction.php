@@ -20,7 +20,6 @@ class UserAction
             session_start();
         }
         $this->vEmpty = $vEmpty = v::not(v::notEmpty());
-        $this->checkLoggedIn();
         $this->username = $_SESSION['username'];
         $this->conn = new MysqliDb();
         $this->hashed_password = $this->conn->where("username", $this->username)->getOne("users")['hashed_password'];
@@ -37,6 +36,7 @@ class UserAction
 
     public function changePassword()
     {
+        $this->checkLoggedIn();
         if ($this->vEmpty->validate($_POST['oldPassword']) or $this->vEmpty->validate($_POST['newPassword'])) {
             header("HTTP/1.1 500 Password empty");
             echo "Passwort darf nicht leer sein";
@@ -65,6 +65,7 @@ class UserAction
 
     public function createUser()
     {
+        $this->checkLoggedIn();
         if ($this->vEmpty->validate($_POST['username']) or $this->vEmpty->validate($_POST['password'])) {
             header("HTTP/1.1 500 Benutzername oder Passwort leer");
             exit;
@@ -94,6 +95,7 @@ class UserAction
 
     public function deleteUser()
     {
+        $this->checkLoggedIn();
         if ($this->vEmpty->validate($_POST['id'])) {
             header("HTTP/1.1 500 empty id");
             echo "id ist leer";
@@ -110,6 +112,7 @@ class UserAction
 
     public function getUsers()
     {
+        $this->checkLoggedIn();
         $rows = $this->conn->get("users");
         try {
             echo "<table class='table table-responsive table-bordered'>
@@ -141,6 +144,7 @@ class UserAction
 
     public function saveSplineCoords()
     {
+        $this->checkLoggedIn();
         if ($this->vEmpty->validate($_POST['splineCoords'])) {
             header("HTTP/1.1 500 data empty");
             echo "data ist leer";
@@ -157,6 +161,7 @@ class UserAction
 
     public function saveUserCoords()
     {
+        $this->checkLoggedIn();
         if ($this->vEmpty->validate($_POST['userCoords'])) {
             header("HTTP/1.1 500 userCoords empty");
             echo "userCoords ist leer";
@@ -177,6 +182,7 @@ class UserAction
 
     public function setDelay()
     {
+        $this->checkLoggedIn();
         if ($this->vEmpty->validate($_POST['delay']) or !v::numeric()->validate($_POST['delay'])) {
             header("HTTP/1.1 500 Not Numeric");
             echo "Bitte geben Sie eine Zahl ein.";
@@ -187,4 +193,111 @@ class UserAction
         echo $delay;
     }
 
+    public function login()
+    {
+        if (!v::notEmpty()->alnum()->length(1, 40)->validate($_POST['username'])) {
+            header("HTTP/1.1 500 username invalid");
+            echo "Benutzername ungültig. Nur Buchstaben von A bis Z und Zahlen zulässig.";
+            exit;
+        }
+
+        if ($this->vEmpty->validate(($_POST['password']))) {
+            header("HTTP/1.1 500 empty password");
+            echo "Passwort leer";
+            exit;
+        }
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+
+        try {
+            $userdata = $this->conn->where('username', $username)->getOne("users");
+
+            $hashAndSalt = $userdata['hashed_password'];
+            if (password_verify($password, $hashAndSalt)) {
+                // Verified
+                $_SESSION['username'] = $userdata['username'];
+                echo "Anmeldung erfolgreich, " . $_SESSION['username'] . "!";
+            } else {
+                header("HTTP/1.1 500 wrong password or username");
+                echo "Benutzername oder Passwort falsch";
+                exit;
+            }
+        } catch (Exception $e) {
+            header("HTTP/1.1 500 Internal Server Error");
+            exit;
+        }
+
+    }
+
+    public static function logout()
+    {
+        session_start();
+        session_destroy();
+        echo "Abmeldung erfolgreich";
+        header("Location: /");
+    }
+
+    public function getDelay()
+    {
+        try {
+            $row = $this->conn->getOne("settings", "delay");
+            $delay = $row['delay'];
+            echo(json_encode($delay));
+        } catch (Exception $e) {
+            header("HTTP/1.1 500 Internal Server Error");
+            exit;
+        }
+    }
+
+    public function getMeasurements()
+    {
+        try {
+            $rows = $this->conn->orderBy("time_measured", "DESC")->get("measurements", 2000);
+            //the latest 20 measurements, but sorted ASC
+            $measurements = array_reverse($rows);
+            echo json_encode($measurements);
+        } catch (Exception $e) {
+            header("HTTP/1.1 500 Internal Server Error");
+            exit;
+        }
+    }
+
+    public function getNewestMeasurement()
+    {
+        try {
+            $row = $this->conn->orderBy("time_measured", "DESC")->getOne("measurements");
+            echo json_encode($row);
+        } catch (Exception $e) {
+            header("HTTP/1.1 500 Internal Server Error");
+            exit;
+        }
+    }
+
+    public function getNewLiveImg()
+    {
+        if (!v::notEmpty()->numeric()->validate($_POST['lastModified'])) {
+            header("HTTP/1.1 500 lastModified is not a number");
+            exit;
+        }
+
+        $lastModified = $_POST['lastModified'];
+        $newModified = filemtime($_SERVER['DOCUMENT_ROOT'] . "/img/0.jpg");
+        if ($lastModified != $newModified) {
+            echo $newModified;
+        }
+    }
+
+    public function getPoints()
+    {
+        try {
+            $rows = $this->conn->get("user_coords", null, array('lat_user', 'lon_user'));
+            foreach ($rows as &$row) {
+                $row = array($row['lat_user'], $row['lon_user']);;
+            }
+            echo json_encode($rows);
+        } catch (Exception $e) {
+            header("HTTP/1.1 500 Internal Server Error");
+            exit;
+        }
+    }
 }

@@ -1,4 +1,26 @@
+//ajax prefinition
+function userAction(options) {
+    $.ajax({
+        type: "POST",
+        url: "php/userActionHandler.php",
+        data: options.data,
+        processData: false,
+        success: options.success,
+        error: options.error
+    });
+}
 $(document).ready(function () {
+
+    //gets user table from SQL
+    function writeUserTable(){
+        userAction({
+            data: "action=getUsers",
+            success: function (data) {
+                $("#userTable").html(data);
+            }
+        });
+    }
+    writeUserTable();
 
     //gets delay via callback async
     getDelay(function (delay) {
@@ -10,88 +32,69 @@ $(document).ready(function () {
         //stop page from reloading after submit
         event.preventDefault();
         const f = $('#delayForm');
-        $.ajax({
-            type: "POST",
-            url: "php/users/setDelay.php",
-            data: f.serialize(),
-            processData: false,
+        userAction({
+            data: f.serialize() + "&action=setDelay",
             success: function (data) {
-                $("#delayForm")[0].reset();
+                f[0].reset();
                 $("#divSubmit").html("Der Delay beträgt jetzt " + data + " Sekunden.");
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                $("#delayForm")[0].reset();
+                f[0].reset();
                 $("#divSubmit").html(" " + xhr.responseText);
             }
         });
     });
 
-    //gets user table from SQL
-    $.post("php/users/getUsers.php", function (data) {
-        $("#userTable").html(data);
-    });
+
 
     //listener listens to all elements which have userid attributes (delete user)
     //deletes user with id which was clicked
     $('body').on("click", '[userid]', function () {
         const userid = $(this).attr("userid");
 
-        $.ajax({
-            type: "POST",
-            url: "php/users/deleteUser.php",
-            data: 'id=' + userid,
-            processData: false,
+        userAction({
+            data: 'id=' + userid + "&action=deleteUser",
             success: function () {
-                $.post("php/users/getUsers.php", function (data) {
-                    $("#userTable").html(data);
-                });
+                writeUserTable();
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 console.log(xhr.responseText);
-                $("#alertUserForm").fadeIn().removeClass('hidden')
+                $("#alertChangeUserForm").fadeIn().removeClass('hidden')
                     .find("> p").text(xhr.responseText);
             }
         });
     });
 
     //form to create users handling
-    $('#userForm').submit(function () {
+    $('#createUser').submit(function () {
         //stop page from reloading after submit
         event.preventDefault();
-        const f = $("#userForm");
-        $.ajax({
-            type: "POST",
-            url: "php/users/createUser.php",
-            data: f.serialize(),
-            processData: false,
+        const f = $("#createUser");
+        userAction({
+            data: f.serialize() + "&action=" + f.attr('id'),
             success: function () {
-                $("#userForm")[0].reset();
-                $("#alertUserForm").fadeOut().addClass('hidden')
+                f[0].reset();
+                $("#alertChangeUserForm").fadeOut().addClass('hidden')
                     .find("> p").text('');
-                $.post("php/users/getUsers.php", function (data) {
-                    $("#userTable").html(data);
-                });
+                writeUserTable();
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                $("#userForm")[0].reset();
-                $("#alertUserForm").fadeIn().removeClass('hidden')
+                f[0].reset();
+                $("#alertChangeUserForm").fadeIn().removeClass('hidden')
                     .find("> p").text(xhr.responseText);
             }
         });
     });
 
     //form to change password handling
-    $('#changePwdForm').submit(function () {
+    $('#changePassword').submit(function () {
         //stop page from reloading after submit
         event.preventDefault();
-        const f = $("#changePwdForm");
-        $.ajax({
-            type: "POST",
-            url: "php/users/changePassword.php",
-            data: f.serialize(),
-            processData: false,
+        const f = $("#changePassword");
+        userAction({
+            data: f.serialize() + "&action=" + f.attr('id'),
             success: function (data) {
-                $("#changePwdForm")[0].reset();
+                f[0].reset();
                 $("#alertChangePwdForm").fadeIn(300).removeClass('hidden alert-danger').addClass('alert-success')
                     .find("> p").text(data);
                 setTimeout(function () {
@@ -100,7 +103,7 @@ $(document).ready(function () {
                 }, 5000);
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                $("#changePwdForm")[0].reset();
+                f[0].reset();
                 $("#alertChangePwdForm").fadeIn().removeClass('hidden').addClass('alert-danger')
                     .find("> p").text(xhr.responseText);
             }

@@ -11,13 +11,13 @@ function writeCoords(userCoords) {
 
 
     //saves the coords to splineCoords.txt
-    $.post("php/users/saveSplineCoords.php", {
-        'data': strWrite
+    userAction({
+        data: "action=saveSplineCoords&splineCoords="+strWrite
     });
 
     //saves userCoords to SQL table user_coords
-    $.post("php/users/saveUserCoords.php", {
-        userCoords: JSON.stringify(userCoords)
+    userAction({
+        data: "action=saveUserCoords&userCoords="+JSON.stringify(userCoords)
     });
 }
 

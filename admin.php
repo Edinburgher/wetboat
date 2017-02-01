@@ -14,8 +14,8 @@ if (!isset($_SESSION['username'])) {
     ?>
 
     <script src="js/delay.js"></script>
-    <script src="js/funcMaps.js"></script>
     <script src="js/admin.js"></script>
+    <script src="js/funcMaps.js"></script>
     <link rel="stylesheet" href="css/main.css">
 </head>
 
@@ -60,7 +60,7 @@ if (!isset($_SESSION['username'])) {
                     <p></p>
                 </div>
                 <span>Passwort ändern:</span>
-                <form id="changePwdForm" class="form-inline" method="POST">
+                <form id="changePassword" class="form-inline" method="POST">
                     <input type="password" name="oldPassword" class="form-control input-md" placeholder="Altes Passwort"
                            required>
                     <input type="password" name="newPassword" class="form-control input-md" placeholder="Neues Passwort"
@@ -68,11 +68,11 @@ if (!isset($_SESSION['username'])) {
                     <input type="submit" class="btn btn-default"/>
                 </form>
                 <br>
-                <div class="alert alert-danger hidden" id="alertUserForm">
+                <div class="alert alert-danger hidden" id="alertChangeUserForm">
                     <p></p>
                 </div>
                 <span>Neuen User anlegen:</span>
-                <form id="userForm" class="form-inline" method="POST">
+                <form id="createUser" class="form-inline" method="POST">
                     <input type="text" name="username" class="form-control input-md" placeholder="Benutzername"
                            required>
                     <input type="password" name="password" class="form-control input-md" placeholder="Passwort"

@@ -29,8 +29,8 @@ try {
         $_SESSION['username'] = $userdata['username'];
         echo "Anmeldung erfolgreich, " . $_SESSION['username'] . "!";
     } else {
-        header("HTTP/1.1 500 wrong password ");
-        echo "Passwort falsch";
+        header("HTTP/1.1 500 wrong password or username");
+        echo "Benutzername oder Passwort falsch";
         exit;
     }
 

@@ -27,8 +27,6 @@ function myMap() {
             console.log(entry.lat().toFixed(6) + "," + entry.lng().toFixed(6));
         });*/
 
-
-
         //https://trulycode.com/bytes/disable-google-maps-drag-zoom-mobile-iphone/
         const isDraggable = !('ontouchstart' in document.documentElement);
         const mapOptions = {

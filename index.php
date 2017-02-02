@@ -6,7 +6,7 @@ session_start();
 
 <head>
     <?php
-    include_once __DIR__ . "/php/head.php";
+    include_once __DIR__ . "/php/blocks/head.php";
     ?>
     <script src="https://code.highcharts.com/stock/highstock.js"></script>
     <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
@@ -14,7 +14,7 @@ session_start();
     <script src="js/funcMaps.js"></script>
     <script src="js/userMaps.js"></script>
     <?php
-    include_once __DIR__ . "/php/maps.php";
+    include_once __DIR__ . "/php/blocks/maps.php";
     ?>
     <script src="js/diagramm.js"></script>
     <script src="js/index.js"></script>
@@ -24,7 +24,7 @@ session_start();
 
 <body>
     <?php
-    include_once __DIR__ . "/php/nav.php";
+    include_once __DIR__ . "/php/blocks/nav.php";
     ?>
     <div class="container-fluid">
         <div class="row content">
@@ -76,7 +76,7 @@ session_start();
         </div>
     </div>
     <?php
-    include_once __DIR__ . "/php/footer.php";
+    include_once __DIR__ . "/php/blocks/footer.php";
     ?>
 
 </body>

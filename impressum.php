@@ -6,7 +6,7 @@ session_start();
 
 <head>
     <?php
-    include_once __DIR__ . "/php/head.php";
+    include_once __DIR__ . "/php/blocks/head.php";
     ?>
 
     <link rel="stylesheet" href="css/main.css">
@@ -15,7 +15,7 @@ session_start();
 
 <body>
     <?php
-    include_once __DIR__ . "/php/nav.php";
+    include_once __DIR__ . "/php/blocks/nav.php";
     ?>
     <div class="container-fluid">
         <div class="row content">
@@ -30,7 +30,7 @@ session_start();
         </div>
     </div>
     <?php
-    include_once __DIR__ . "/php/footer.php";
+    include_once __DIR__ . "/php/blocks/footer.php";
     ?>
 </body>
 

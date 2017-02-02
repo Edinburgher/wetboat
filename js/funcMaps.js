@@ -23,7 +23,7 @@ function writeCoords(userCoords) {
 
 function getUserCoords(callback) {
     userAction({
-        data: "action=getPoints",
+        data: "action=getUserCoords",
         success: function (rows) {
             //rows is a [][]
             rows = JSON.parse(rows);

@@ -14,6 +14,9 @@ class UserAction
 {
     private $username, $hashed_password, $conn, $vEmpty;
 
+    /**
+     * UserAction constructor.
+     */
     public function __construct()
     {
         if (session_status() == PHP_SESSION_NONE) {
@@ -25,6 +28,12 @@ class UserAction
         $this->hashed_password = $this->conn->where("username", $this->username)->getOne("users")['hashed_password'];
     }
 
+    /**
+     * Checks if user is logged in (session)
+     * Echos error code 500 if not.
+     *
+     * @return void
+     */
     private function checkLoggedIn()
     {
         if ($this->vEmpty->validate($_SESSION['username'])) {
@@ -34,6 +43,12 @@ class UserAction
         }
     }
 
+    /**
+     * Changes password in database if old password is correct
+     * Echos 500 error if not.
+     *
+     * @return void
+     */
     public function changePassword()
     {
         $this->checkLoggedIn();
@@ -63,6 +78,12 @@ class UserAction
         }
     }
 
+    /**
+     * Creates user in database if username doesnt exist
+     * Echos error code 500 if it does.
+     *
+     * @return void
+     */
     public function createUser()
     {
         $this->checkLoggedIn();
@@ -93,6 +114,13 @@ class UserAction
         }
     }
 
+    /**
+     * Deletes user from database if username exists
+     * checks for username specifications (alphanumeric, length = 1 ... 40)
+     * Echos error code 500 if it doesn't.
+     *
+     * @return void
+     */
     public function deleteUser()
     {
         $this->checkLoggedIn();
@@ -110,6 +138,12 @@ class UserAction
         }
     }
 
+    /**
+     * Gets users from database
+     * Echos error code 500 if it does.
+     *
+     * @return void
+     */
     public function getUsers()
     {
         $this->checkLoggedIn();
@@ -142,6 +176,12 @@ class UserAction
 
     }
 
+    /**
+     * Saves spline coordinates to splineCoords.txt
+     * Echos error if it fails.
+     *
+     * @return void
+     */
     public function saveSplineCoords()
     {
         $this->checkLoggedIn();
@@ -159,6 +199,12 @@ class UserAction
         fclose($f);
     }
 
+    /**
+     * Saves user input coordinates to database
+     * Echos error code 500 if points aren't set
+     *
+     * @return void
+     */
     public function saveUserCoords()
     {
         $this->checkLoggedIn();
@@ -180,6 +226,12 @@ class UserAction
         $this->conn->insertMulti("user_coords", $data, array("lat_user", "lon_user"));
     }
 
+    /**
+     * Sets delay in database settings table
+     * Echos error code 500 if it fails.
+     *
+     * @return void
+     */
     public function setDelay()
     {
         $this->checkLoggedIn();
@@ -193,6 +245,12 @@ class UserAction
         echo $delay;
     }
 
+    /**
+     * Logs in user
+     * Echos error code 500 if it fails.
+     *
+     * @return void
+     */
     public function login()
     {
         if (!v::notEmpty()->alnum()->length(1, 40)->validate($_POST['username'])) {
@@ -229,6 +287,11 @@ class UserAction
 
     }
 
+    /**
+     * Logs out user
+     *
+     * @return void
+     */
     public static function logout()
     {
         session_start();
@@ -237,6 +300,12 @@ class UserAction
         header("Location: /");
     }
 
+    /**
+     * Gets delay from database settings table
+     * Echos error code 500 if it fails.
+     *
+     * @return void
+     */
     public function getDelay()
     {
         try {
@@ -249,6 +318,29 @@ class UserAction
         }
     }
 
+    /**
+     * Gets specific number of measurments from database
+     * Echos error code 500 if it fails.
+     *
+     * @return void
+     */
+    public function getNewestMeasurement()
+    {
+        try {
+            $row = $this->conn->orderBy("time_measured", "DESC")->getOne("measurements");
+            echo json_encode($row);
+        } catch (Exception $e) {
+            header("HTTP/1.1 500 Internal Server Error");
+            exit;
+        }
+    }
+
+    /**
+     * Gets newest measurment from database
+     * Echos error code 500 if it fails.
+     *
+     * @return void
+     */
     public function getMeasurements()
     {
         try {
@@ -262,17 +354,13 @@ class UserAction
         }
     }
 
-    public function getNewestMeasurement()
-    {
-        try {
-            $row = $this->conn->orderBy("time_measured", "DESC")->getOne("measurements");
-            echo json_encode($row);
-        } catch (Exception $e) {
-            header("HTTP/1.1 500 Internal Server Error");
-            exit;
-        }
-    }
-
+    /**
+     * Checks if old timestamp < new timestamp of image file (0.jpg)     *
+     * Echos error code 500 if it fails.
+     * Echos new timestamp
+     *
+     * @return void
+     */
     public function getNewLiveImg()
     {
         if (!v::notEmpty()->numeric()->validate($_POST['lastModified'])) {
@@ -287,7 +375,13 @@ class UserAction
         }
     }
 
-    public function getPoints()
+    /**
+     * Gets user input coordinates from database
+     * Echos error code 500 if it fails.
+     *
+     * @return void
+     */
+    public function getUserCoords()
     {
         try {
             $rows = $this->conn->get("user_coords", null, array('lat_user', 'lon_user'));

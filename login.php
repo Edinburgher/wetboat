@@ -9,7 +9,7 @@ if (isset($_SESSION['username'])) {
 
 <head>
     <?php
-    include_once __DIR__ . "/php/head.php";
+    include_once __DIR__ . "/php/blocks/head.php";
     ?>
 
     <link rel="stylesheet" href="css/main.css">
@@ -19,7 +19,7 @@ if (isset($_SESSION['username'])) {
 
 <body>
     <?php
-    include_once __DIR__ . "/php/nav.php";
+    include_once __DIR__ . "/php/blocks/nav.php";
     ?>
     <form id="loginForm" class="form-signin" method="POST">
         <div class="alert alert-danger hidden" id="errorMessage">
@@ -36,7 +36,7 @@ if (isset($_SESSION['username'])) {
     </form>
 
     <?php
-    include_once __DIR__ . "/php/footer.php";
+    include_once __DIR__ . "/php/blocks/footer.php";
     ?>
 </body>
 

@@ -2,6 +2,11 @@ $(document).ready(function () {
 
     getDelay(function (delayMS) {
 
+        $("#pop").on("click", function() {
+            $('#imagepreview').attr('src', $('#liveImage').attr('src')); // here asign the image to the modal when the user click the enlarge link
+            $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
+        });
+
         //check for new images
         let interval = setInterval(getNewLiveImg, delayMS);
         const liveImg = $("#liveImage");

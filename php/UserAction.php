@@ -190,12 +190,12 @@ class UserAction
             echo "data ist leer";
             exit;
         }
-        $data = $_POST['data'];
+        $splineCoords = $_POST['splineCoords'];
         $filename = $_SERVER['DOCUMENT_ROOT'] . "/splineCoords.txt";
         //set mode of file to writable.
-        chmod($filename, 0777);
+        chmod("$filename", 0777);
         $f = fopen($filename, "w+") or die("fopen failed");
-        fwrite($f, $data);
+        fwrite($f, $splineCoords);
         fclose($f);
     }
 

@@ -40,8 +40,11 @@ function myMap() {
 
             const boatCoords = new google.maps.LatLng(lat, lon);
 
-            const contentString = `<div id="content"><div id="siteNotice"></div><h1 id="firstHeading" class="firstHeading">Position Boot</h1><div>${datestring
-            }</div>`;
+            const contentString = '<div id="content">' +
+                '<div id="siteNotice">' +
+                "</div>" +
+                '<h1 id="firstHeading" class="firstHeading">Position Boot</h1>' +
+                "<div>" + datestring + "</div>";
 
             infowindow.setOptions({
                 content: contentString

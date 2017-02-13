@@ -13,13 +13,13 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li>
+                <li
                     <?php
                     $filename = basename($_SERVER['PHP_SELF']);
                     if ($filename === "index.php") {
                         echo " class='active'";
                     }
-                    ?>
+                    ?>>
                     <a href="/">Home</a>
                 </li>
                 <!--<li><a href="#">Über Uns</a></li>

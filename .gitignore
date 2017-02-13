@@ -6,8 +6,6 @@ maps.html
 !.htaccess
 /yt
 /vendor
-/PHPWebProject1.phpproj
-/PHPWebProject1.sln
 /composer.lock
 /packages/google.maps.d.ts.1.0.10
 /typings
@@ -15,3 +13,5 @@ maps.html
 /wetboat.sln
 /wetboat.phpproj
 /packages.config
+/packages
+/Scripts/typings

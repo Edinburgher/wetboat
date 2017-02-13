@@ -14,7 +14,7 @@ $(document).ready(function () {
 
     //gets delay via callback async
     getDelay(function (delay) {
-        $("#divSubmit").html(`Der Delay beträgt zurzeit ${delay / 1000} Sekunden.`);
+        $("#divSubmit").html("Der Delay beträgt zurzeit " + delay / 1000 + " Sekunden.");
     });
 
     //form to set delay handling
@@ -26,11 +26,11 @@ $(document).ready(function () {
             data: f.serialize() + "&action=setDelay",
             success: function (data) {
                 f[0].reset();
-                $("#divSubmit").html(`Der Delay beträgt jetzt ${data} Sekunden.`);
+                $("#divSubmit").html("Der Delay beträgt jetzt " + data + " Sekunden.");
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 f[0].reset();
-                $("#divSubmit").html(` ${xhr.responseText}`);
+                $("#divSubmit").html(" " + xhr.responseText);
             }
         });
     });
@@ -43,14 +43,14 @@ $(document).ready(function () {
         const userid = $(this).attr("userid");
 
         userAction({
-            data: `id=${userid}&action=deleteUser`,
+            data: "id=" + userid + "&action=deleteUser",
             success: function () {
                 writeUserTable();
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 console.log(xhr.responseText);
                 $("#alertChangeUserForm").fadeIn().removeClass("hidden")
-                                         .find("> p").text(xhr.responseText);
+                    .find("> p").text(xhr.responseText);
             }
         });
     });
@@ -65,13 +65,13 @@ $(document).ready(function () {
             success: function () {
                 f[0].reset();
                 $("#alertChangeUserForm").fadeOut().addClass("hidden")
-                                         .find("> p").text("");
+                    .find("> p").text("");
                 writeUserTable();
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 f[0].reset();
                 $("#alertChangeUserForm").fadeIn().removeClass("hidden")
-                                         .find("> p").text(xhr.responseText);
+                    .find("> p").text(xhr.responseText);
             }
         });
     });
@@ -86,16 +86,16 @@ $(document).ready(function () {
             success: function (data) {
                 f[0].reset();
                 $("#alertChangePwdForm").fadeIn(300).removeClass("hidden alert-danger").addClass("alert-success")
-                                        .find("> p").text(data);
+                    .find("> p").text(data);
                 setTimeout(function () {
                     $("#alertChangePwdForm").fadeOut(300).addClass("hidden").removeClass("alert-success")
-                                            .find("> p").text("");
+                        .find("> p").text("");
                 }, 5000);
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 f[0].reset();
                 $("#alertChangePwdForm").fadeIn().removeClass("hidden").addClass("alert-danger")
-                                        .find("> p").text(xhr.responseText);
+                    .find("> p").text(xhr.responseText);
             }
         });
     });

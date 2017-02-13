@@ -12,7 +12,7 @@ use Respect\Validation\Validator as v;
 
 class UserAction
 {
-    private $username, $hashed_password, $conn, $vEmpty;
+    private $username = null, $hashed_password = null, $conn = null, $vEmpty = null;
 
     /**
      * UserAction constructor.
@@ -22,8 +22,11 @@ class UserAction
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        $this->vEmpty = $vEmpty = v::not(v::notEmpty());
-        $this->username = $_SESSION['username'];
+        $this->vEmpty = v::not(v::notEmpty());
+        $_SESSION['username'] = null;
+        if(empty($_SESSION['username'])){
+            $this->username = $_SESSION['username'];
+        }
         $this->conn = new MysqliDb();
         $this->hashed_password = $this->conn->where("username", $this->username)->getOne("users")['hashed_password'];
     }

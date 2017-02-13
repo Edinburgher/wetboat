@@ -16,7 +16,7 @@ $(document).ready(function () {
             //get timestamp when the loaded img was last modified
             const lastModified = liveImg.attr("src").split("?").pop();
             userAction({
-                data: `lastModified=${lastModified}&action=getNewLiveImg`,
+                data: "lastModified=" + lastModified + "&action=getNewLiveImg",
                 success: function (newModified) {
                     if (newModified !== "") {
                         //new img found --> start timer to measure time until loaded
@@ -24,7 +24,7 @@ $(document).ready(function () {
                         //no more polling needed atm
                         clearInterval(interval);
 
-                        liveImg.prop("src", `img/0.jpg?${newModified}`);
+                        liveImg.prop("src", "img/0.jpg?" + newModified);
 
                         //when new image ready
                         liveImg.on("load", function () {

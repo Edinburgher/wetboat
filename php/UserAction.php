@@ -23,7 +23,6 @@ class UserAction
             session_start();
         }
         $this->vEmpty = v::not(v::notEmpty());
-        $_SESSION['username'] = null;
         if(empty($_SESSION['username'])){
             $this->username = $_SESSION['username'];
         }

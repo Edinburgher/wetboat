@@ -1,5 +1,6 @@
 #container {
     height: 433px;
+    margin-top: 20px;
 }
 
 /* Remove the navbar's default margin-bottom and rounded borders */
@@ -56,13 +57,13 @@ footer {
     background-color: inherit;
 }
 
-.navbar-brand > img {
-    height: 100px;
-    line-height: 100px;
-    margin-top: 0;
-    padding-top: 7px;
-    padding-bottom: 7px;
-}
+    .navbar-brand > img {
+        height: 100px;
+        line-height: 100px;
+        margin-top: 0;
+        padding-top: 7px;
+        padding-bottom: 7px;
+    }
 
 @media (min-width: 767px) {
     .navbar-brand,
@@ -84,9 +85,6 @@ body {
     font-weight: 300;
 }
 
-#container {
-    margin-top: 20px;
-}
 
 /* On small screens, set height to 'auto' for sidenav and grid */
 

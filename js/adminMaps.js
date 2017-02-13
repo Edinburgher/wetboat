@@ -12,10 +12,10 @@ function myMap() {
             //http://stackoverflow.com/questions/4775722/check-if-object-is-array
             google.maps.event.clearInstanceListeners(this.getPath());
             this.setPath(path);
-            google.maps.event.addListener(this.getPath(), 'set_at', function () {
+            google.maps.event.addListener(this.getPath(), "set_at", function () {
                 courseBoat.splineAndSetPath(this);
             });
-            google.maps.event.addListener(this.getPath(), 'insert_at', function () {
+            google.maps.event.addListener(this.getPath(), "insert_at", function () {
                 courseBoat.splineAndSetPath(this);
             });
         };
@@ -28,7 +28,7 @@ function myMap() {
         });*/
 
         //https://trulycode.com/bytes/disable-google-maps-drag-zoom-mobile-iphone/
-        const isDraggable = !('ontouchstart' in document.documentElement);
+        const isDraggable = !("ontouchstart" in document.documentElement);
         const mapOptions = {
             center: polygonPointsSplined[0],
             zoom: 16,
@@ -36,7 +36,7 @@ function myMap() {
             draggable: isDraggable,
             scrollwheel: isDraggable,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
-            gestureHandling: 'auto'
+            gestureHandling: "auto"
         };
         //Map init
         const mapCanvas = document.getElementById("map");
@@ -74,16 +74,16 @@ function myMap() {
         });
 
         //set initial listeners to drag polygon in edit mode
-        google.maps.event.addListener(userPolygon.getPath(), 'set_at', function () {
+        google.maps.event.addListener(userPolygon.getPath(), "set_at", function () {
             courseBoat.splineAndSetPath(this);
         });
-        google.maps.event.addListener(userPolygon.getPath(), 'insert_at', function () {
+        google.maps.event.addListener(userPolygon.getPath(), "insert_at", function () {
             courseBoat.splineAndSetPath(this);
         });
 
 
         //fires when new polygon is finished (Neue Route)
-        google.maps.event.addListener(drawingManager, 'polygoncomplete', function (newPolygon) {
+        google.maps.event.addListener(drawingManager, "polygoncomplete", function (newPolygon) {
             //exit drawing mode and delete drawn polygon
             drawingManager.setDrawingMode(null);
             newPolygon.setMap(null);
@@ -117,7 +117,7 @@ function myMap() {
                 drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
                 map.setOptions({
                     draggable: true,
-                    gestureHandling: 'greedy'
+                    gestureHandling: "greedy"
                 });
             });
 
@@ -133,7 +133,7 @@ function myMap() {
                     userPolygon.setMap(map);
                     map.setOptions({
                         draggable: true,
-                        gestureHandling: 'greedy'
+                        gestureHandling: "greedy"
                     });
                 });
             });
@@ -146,7 +146,7 @@ function myMap() {
                 $(".drawOption").addClass("hidden");
                 map.setOptions({
                     draggable: isDraggable,
-                    gestureHandling: 'auto'
+                    gestureHandling: "auto"
                 });
                 drawingManager.setDrawingMode(null);
                 userPolygon.setMap(null);
@@ -159,7 +159,7 @@ function myMap() {
                     courseBoat.splineAndSetPath(userCoords);
                     map.setOptions({
                         draggable: isDraggable,
-                        gestureHandling: 'auto'
+                        gestureHandling: "auto"
                     });
                     //hide editable polygon and update splined one
                     userPolygon.setMap(null);

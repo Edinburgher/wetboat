@@ -12,12 +12,12 @@ function writeCoords(userCoords) {
 
     //saves the coords to splineCoords.txt
     userAction({
-        data: "action=saveSplineCoords&splineCoords="+strWrite
+        data: `action=saveSplineCoords&splineCoords=${strWrite}`
     });
 
     //saves userCoords to SQL table user_coords
     userAction({
-        data: "action=saveUserCoords&userCoords="+JSON.stringify(userCoords)
+        data: `action=saveUserCoords&userCoords=${JSON.stringify(userCoords)}`
     });
 }
 

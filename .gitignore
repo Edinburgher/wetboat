@@ -4,3 +4,14 @@
 maps.html
 *.csv
 !.htaccess
+/yt
+/vendor
+/PHPWebProject1.phpproj
+/PHPWebProject1.sln
+/composer.lock
+/packages/google.maps.d.ts.1.0.10
+/typings
+/WebEssentials2015-Settings.json
+/wetboat.sln
+/wetboat.phpproj
+/packages.config

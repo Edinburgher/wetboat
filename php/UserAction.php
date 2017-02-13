@@ -72,7 +72,8 @@ class UserAction
                 echo "Falsches Passwort";
                 exit;
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
             header("HTTP/1.1 500 Internal Server Error");
             exit;
         }
@@ -108,7 +109,8 @@ class UserAction
             }
             $hashAndSalt = password_hash($newPassword, PASSWORD_BCRYPT);
             $this->conn->insert("users", array('username' => $newUsername, 'hashed_password' => $hashAndSalt));
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
             header("HTTP/1.1 500 Internal Server Error");
             exit;
         }
@@ -132,7 +134,8 @@ class UserAction
         try {
             $userid = $_POST['id'];
             $this->conn->where("ID", $userid)->delete("users");
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
             header("HTTP/1.1 500 Internal Server Error");
             exit;
         }
@@ -169,7 +172,8 @@ class UserAction
                 echo "</tr>";
             }
             echo "</table>";
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
             header("HTTP/1.1 500 Internal Server Error");
             exit;
         }
@@ -280,7 +284,8 @@ class UserAction
                 echo "Benutzername oder Passwort falsch";
                 exit;
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
             header("HTTP/1.1 500 Internal Server Error");
             exit;
         }
@@ -312,7 +317,8 @@ class UserAction
             $row = $this->conn->getOne("settings", "delay");
             $delay = $row['delay'];
             echo(json_encode($delay));
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
             header("HTTP/1.1 500 Internal Server Error");
             exit;
         }
@@ -329,7 +335,8 @@ class UserAction
         try {
             $row = $this->conn->orderBy("time_measured", "DESC")->getOne("measurements");
             echo json_encode($row);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
             header("HTTP/1.1 500 Internal Server Error");
             exit;
         }
@@ -348,7 +355,8 @@ class UserAction
             //the latest 20 measurements, but sorted ASC
             $measurements = array_reverse($rows);
             echo json_encode($measurements);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
             header("HTTP/1.1 500 Internal Server Error");
             exit;
         }
@@ -389,7 +397,8 @@ class UserAction
                 $row = array($row['lat_user'], $row['lon_user']);;
             }
             echo json_encode($rows);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
             header("HTTP/1.1 500 Internal Server Error");
             exit;
         }

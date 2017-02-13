@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('#loginForm').submit(function (event) {
+    $("#loginForm").submit(function (event) {
         //stop page from reloading after submit
         event.preventDefault();
         const f = $("#loginForm");
@@ -8,12 +8,12 @@ $(document).ready(function () {
         userAction({
             data: f.serialize() + "&action=login",
             success: function () {
-                window.location.href = '/admin';
+                window.location.href = "/admin.php";
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                $("#errorMessage").fadeIn().removeClass('hidden')
+                $("#errorMessage").fadeIn().removeClass("hidden")
                     .find("> p").text(xhr.responseText);
-                $(".form-control").val('');
+                $(".form-control").val("");
             }
         });
     });

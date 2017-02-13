@@ -9,7 +9,7 @@ function myMap() {
         //Map init
         const mapCanvas = document.getElementById("map");
         //https://trulycode.com/bytes/disable-google-maps-drag-zoom-mobile-iphone/
-        const isDraggable = !('ontouchstart' in document.documentElement);
+        const isDraggable = !("ontouchstart" in document.documentElement);
         const mapOptions = {
             center: polygonPointsSplined[0],
             zoom: 16,
@@ -40,11 +40,8 @@ function myMap() {
 
             const boatCoords = new google.maps.LatLng(lat, lon);
 
-            const contentString = '<div id="content">' +
-                '<div id="siteNotice">' +
-                '</div>' +
-                '<h1 id="firstHeading" class="firstHeading">Position Boot</h1>' +
-                '<div>' + datestring + '</div>';
+            const contentString = `<div id="content"><div id="siteNotice"></div><h1 id="firstHeading" class="firstHeading">Position Boot</h1><div>${datestring
+            }</div>`;
 
             infowindow.setOptions({
                 content: contentString
@@ -54,7 +51,7 @@ function myMap() {
                 position: boatCoords,
                 map: map
             });
-            boatMarker.addListener('click', function () {
+            boatMarker.addListener("click", function () {
                 infowindow.open(map, boatMarker);
             });
         }

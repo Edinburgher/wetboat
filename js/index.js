@@ -2,9 +2,9 @@ $(document).ready(function () {
 
     getDelay(function (delayMS) {
 
-        $("#pop").on("click", function() {
-            $('#imagepreview').attr('src', $('#liveImage').attr('src')); // here asign the image to the modal when the user click the enlarge link
-            $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
+        $("#pop").on("click", function () {
+            $("#imagepreview").attr("src", $("#liveImage").attr("src")); // here asign the image to the modal when the user click the enlarge link
+            $("#imagemodal").modal("show"); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
         });
 
         //check for new images
@@ -14,9 +14,9 @@ $(document).ready(function () {
         //get new image, if not new -> do nothing and poll again
         function getNewLiveImg() {
             //get timestamp when the loaded img was last modified
-            const lastModified = liveImg.attr("src").split('?').pop();
+            const lastModified = liveImg.attr("src").split("?").pop();
             userAction({
-                data: "lastModified=" + lastModified +"&action=getNewLiveImg",
+                data: `lastModified=${lastModified}&action=getNewLiveImg`,
                 success: function (newModified) {
                     if (newModified !== "") {
                         //new img found --> start timer to measure time until loaded
@@ -24,10 +24,10 @@ $(document).ready(function () {
                         //no more polling needed atm
                         clearInterval(interval);
 
-                        liveImg.prop("src", "img/0.jpg?" + newModified);
+                        liveImg.prop("src", `img/0.jpg?${newModified}`);
 
                         //when new image ready
-                        liveImg.on('load', function () {
+                        liveImg.on("load", function () {
                             const loadtime = new Date().getTime() - startTime;
 
                             //waited for $loadtime already --> time between refreshs at least $delayMS

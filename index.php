@@ -19,7 +19,7 @@ session_start();
     <script src="js/diagramm.js"></script>
     <script src="js/index.js"></script>
 
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/main.css" />
 </head>
 
 <body>
@@ -29,8 +29,8 @@ session_start();
     <div class="container-fluid">
         <div class="row content">
             <div class="col-sm-5 col-sm-offset-0">
-                <img id="liveImage" src="img/0.jpg?<?php echo filemtime("img/0.jpg") ?>" class="img-responsive"/>
-                <br>
+                <img id="liveImage" src="img/0.jpg?<?php echo filemtime("img/0.jpg") ?>" class="img-responsive" />
+                <br />
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h3 class="panel-title">Letzte Messung</h3>
@@ -39,24 +39,24 @@ session_start();
                         <div class="table-responsive">
                             <table class="table table-bordered table-condensed text-center">
                                 <thead>
-                                <tr>
-                                    <th class="text-center">Zeit</th>
-                                    <th class="text-center">Luft [°C]</th>
-                                    <th class="text-center">Wasser [°C]</th>
-                                    <th class="text-center">Windgeschw. [km/h]</th>
-                                    <th class="text-center">Luftdruck [hPa]</th>
-                                    <th class="text-center">Luftfeuchte [%]</th>
-                                </tr>
+                                    <tr>
+                                        <th class="text-center">Zeit</th>
+                                        <th class="text-center">Luft [°C]</th>
+                                        <th class="text-center">Wasser [°C]</th>
+                                        <th class="text-center">Windgeschw. [km/h]</th>
+                                        <th class="text-center">Luftdruck [hPa]</th>
+                                        <th class="text-center">Luftfeuchte [%]</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td id="time"></td>
-                                    <td id="airtemp"></td>
-                                    <td id="watertemp"></td>
-                                    <td id="windspeed"></td>
-                                    <td id="airpressure"></td>
-                                    <td id="airhumidity"></td>
-                                </tr>
+                                    <tr>
+                                        <td id="time"></td>
+                                        <td id="airtemp"></td>
+                                        <td id="watertemp"></td>
+                                        <td id="windspeed"></td>
+                                        <td id="airpressure"></td>
+                                        <td id="airhumidity"></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -70,7 +70,7 @@ session_start();
         </div>
         <div class="row content">
             <div class="col-sm-12 col-sm-offset-0">
-                <hr>
+                <hr />
                 <div id="map"></div>
             </div>
         </div>

@@ -66,7 +66,7 @@ function bspline(inPoints) {
     points = [];
     // For every point
     for (i = 2; i < arr.length - 2; i++) {
-        for (t = 0; t < 1; t += 0.2) {
+        for (t = 0; t < 1; t += 0.1) {
             ax = (-arr[i - 2].lat() + 3 * arr[i - 1].lat() - 3 * arr[i].lat() + arr[i + 1].lat()) / 6;
             ay = (-arr[i - 2].lng() + 3 * arr[i - 1].lng() - 3 * arr[i].lng() + arr[i + 1].lng()) / 6;
             bx = (arr[i - 2].lat() - 2 * arr[i - 1].lat() + arr[i].lat()) / 2;

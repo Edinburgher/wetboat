@@ -1,10 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Mario
- * Date: 01.02.2017
- * Time: 09:06
- */
+* Created by PhpStorm.
+* User: Mario
+* Date: 01.02.2017
+* Time: 09:06
+*/
 
 require_once 'MysqliDb.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
@@ -13,10 +13,10 @@ use Respect\Validation\Validator as v;
 class UserAction
 {
     private $username = null, $hashed_password = null, $conn = null, $vEmpty = null;
-
+    
     /**
-     * UserAction constructor.
-     */
+    * UserAction constructor.
+    */
     public function __construct()
     {
         if (session_status() == PHP_SESSION_NONE) {
@@ -29,13 +29,13 @@ class UserAction
         $this->conn = new MysqliDb();
         $this->hashed_password = $this->conn->where("username", $this->username)->getOne("users")['hashed_password'];
     }
-
+    
     /**
-     * Checks if user is logged in (session)
-     * Echos error code 500 if not.
-     *
-     * @return void
-     */
+    * Checks if user is logged in (session)
+    * Echos error code 500 if not.
+    *
+    * @return void
+    */
     private function checkLoggedIn()
     {
         if ($this->vEmpty->validate($_SESSION['username'])) {
@@ -44,13 +44,13 @@ class UserAction
             exit;
         }
     }
-
+    
     /**
-     * Changes password in database if old password is correct
-     * Echos 500 error if not.
-     *
-     * @return void
-     */
+    * Changes password in database if old password is correct
+    * Echos 500 error if not.
+    *
+    * @return void
+    */
     public function changePassword()
     {
         $this->checkLoggedIn();
@@ -59,7 +59,7 @@ class UserAction
             echo "Passwort darf nicht leer sein";
             exit;
         }
-
+        
         $user_password_old = $_POST['oldPassword'];
         $user_password_new = $_POST['newPassword'];
         try {
@@ -67,7 +67,7 @@ class UserAction
                 // Verified
                 $hashAndSalt = password_hash($user_password_new, PASSWORD_BCRYPT);
                 $this->conn->where("username", $this->username)->update("users", array('hashed_password' => $hashAndSalt));
-
+                
                 echo 'Passwortänderung erfolgreich!';
             } else {
                 header("HTTP/1.1 500 Wrong Password");
@@ -80,13 +80,13 @@ class UserAction
             exit;
         }
     }
-
+    
     /**
-     * Creates user in database if username doesnt exist
-     * Echos error code 500 if it does.
-     *
-     * @return void
-     */
+    * Creates user in database if username doesnt exist
+    * Echos error code 500 if it does.
+    *
+    * @return void
+    */
     public function createUser()
     {
         $this->checkLoggedIn();
@@ -94,7 +94,7 @@ class UserAction
             header("HTTP/1.1 500 Benutzername oder Passwort leer");
             exit;
         }
-
+        
         if (!v::notEmpty()->alnum()->length(1, 40)->validate($_POST['username'])) {
             header("HTTP/1.1 500 username invalid");
             echo "Benutzername ungültig. Nur Buchstaben von A bis Z und Zahlen zulässig.";
@@ -117,14 +117,14 @@ class UserAction
             exit;
         }
     }
-
+    
     /**
-     * Deletes user from database if username exists
-     * checks for username specifications (alphanumeric, length = 1 ... 40)
-     * Echos error code 500 if it doesn't.
-     *
-     * @return void
-     */
+    * Deletes user from database if username exists
+    * checks for username specifications (alphanumeric, length = 1 ... 40)
+    * Echos error code 500 if it doesn't.
+    *
+    * @return void
+    */
     public function deleteUser()
     {
         $this->checkLoggedIn();
@@ -142,13 +142,13 @@ class UserAction
             exit;
         }
     }
-
+    
     /**
-     * Gets users from database
-     * Echos error code 500 if it does.
-     *
-     * @return void
-     */
+    * Gets users from database
+    * Echos error code 500 if it does.
+    *
+    * @return void
+    */
     public function getUsers()
     {
         $this->checkLoggedIn();
@@ -160,7 +160,7 @@ class UserAction
             <th>username</th>
             <th>Löschen</th>
             </tr>";
-
+            
             foreach ($rows as $row) {
                 echo "<tr>";
                 echo "<td>" . htmlspecialchars($row['ID']) . "</td>";
@@ -179,15 +179,15 @@ class UserAction
             header("HTTP/1.1 500 Internal Server Error");
             exit;
         }
-
+        
     }
-
+    
     /**
-     * Saves spline coordinates to splineCoords.txt
-     * Echos error if it fails.
-     *
-     * @return void
-     */
+    * Saves spline coordinates to splineCoords.txt
+    * Echos error if it fails.
+    *
+    * @return void
+    */
     public function saveSplineCoords()
     {
         $this->checkLoggedIn();
@@ -204,13 +204,13 @@ class UserAction
         fwrite($f, $splineCoords);
         fclose($f);
     }
-
+    
     /**
-     * Saves user input coordinates to database
-     * Echos error code 500 if points aren't set
-     *
-     * @return void
-     */
+    * Saves user input coordinates to database
+    * Echos error code 500 if points aren't set
+    *
+    * @return void
+    */
     public function saveUserCoords()
     {
         $this->checkLoggedIn();
@@ -220,24 +220,24 @@ class UserAction
             exit;
         }
         $userCoords = json_decode($_POST['userCoords']);
-
+        
         //http://stackoverflow.com/questions/7746720/inserting-a-multi-dimensional-php-array-into-a-mysql-database
         $data = array();
         foreach ($userCoords as $row) {
             $data[] = array($row->lat, $row->lng);
         }
-
+        
         $this->conn->delete("user_coords");
         $this->conn->rawQuery("ALTER TABLE user_coords AUTO_INCREMENT = 1;");
         $this->conn->insertMulti("user_coords", $data, array("lat_user", "lon_user"));
     }
-
+    
     /**
-     * Sets delay in database settings table
-     * Echos error code 500 if it fails.
-     *
-     * @return void
-     */
+    * Sets delay in database settings table
+    * Echos error code 500 if it fails.
+    *
+    * @return void
+    */
     public function setDelay()
     {
         $this->checkLoggedIn();
@@ -250,13 +250,13 @@ class UserAction
         $this->conn->update("settings", array("delay" => $delay));
         echo $delay;
     }
-
+    
     /**
-     * Logs in user
-     * Echos error code 500 if it fails.
-     *
-     * @return void
-     */
+    * Logs in user
+    * Echos error code 500 if it fails.
+    *
+    * @return void
+    */
     public function login()
     {
         if (!v::notEmpty()->alnum()->length(1, 40)->validate($_POST['username'])) {
@@ -264,7 +264,7 @@ class UserAction
             echo "Benutzername ungültig. Nur Buchstaben von A bis Z und Zahlen zulässig.";
             exit;
         }
-
+        
         if ($this->vEmpty->validate(($_POST['password']))) {
             header("HTTP/1.1 500 empty password");
             echo "Passwort leer";
@@ -272,10 +272,10 @@ class UserAction
         }
         $username = $_POST['username'];
         $password = $_POST['password'];
-
+        
         try {
             $userdata = $this->conn->where('username', $username)->getOne("users");
-
+            
             $hashAndSalt = $userdata['hashed_password'];
             if (password_verify($password, $hashAndSalt)) {
                 // Verified
@@ -291,14 +291,14 @@ class UserAction
             header("HTTP/1.1 500 Internal Server Error");
             exit;
         }
-
+        
     }
-
+    
     /**
-     * Logs out user
-     *
-     * @return void
-     */
+    * Logs out user
+    *
+    * @return void
+    */
     public static function logout()
     {
         session_start();
@@ -306,13 +306,13 @@ class UserAction
         echo "Abmeldung erfolgreich";
         header("Location: /");
     }
-
+    
     /**
-     * Gets delay from database settings table
-     * Echos error code 500 if it fails.
-     *
-     * @return void
-     */
+    * Gets delay from database settings table
+    * Echos error code 500 if it fails.
+    *
+    * @return void
+    */
     public function getDelay()
     {
         try {
@@ -325,13 +325,13 @@ class UserAction
             exit;
         }
     }
-
+    
     /**
-     * Gets specific number of measurments from database
-     * Echos error code 500 if it fails.
-     *
-     * @return void
-     */
+    * Gets specific number of measurments from database
+    * Echos error code 500 if it fails.
+    *
+    * @return void
+    */
     public function getNewestMeasurement()
     {
         try {
@@ -343,13 +343,13 @@ class UserAction
             exit;
         }
     }
-
+    
     /**
-     * Gets newest measurment from database
-     * Echos error code 500 if it fails.
-     *
-     * @return void
-     */
+    * Gets newest measurment from database
+    * Echos error code 500 if it fails.
+    *
+    * @return void
+    */
     public function getMeasurements()
     {
         try {
@@ -363,34 +363,34 @@ class UserAction
             exit;
         }
     }
-
+    
     /**
-     * Checks if old timestamp < new timestamp of image file (0.jpg)     *
-     * Echos error code 500 if it fails.
-     * Echos new timestamp
-     *
-     * @return void
-     */
+    * Checks if old timestamp < new timestamp of image file (0.jpg)     *
+    * Echos error code 500 if it fails.
+    * Echos new timestamp
+    *
+    * @return void
+    */
     public function getNewLiveImg()
     {
         if (!v::notEmpty()->numeric()->validate($_POST['lastModified'])) {
             header("HTTP/1.1 500 lastModified is not a number");
             exit;
         }
-
+        
         $lastModified = $_POST['lastModified'];
         $newModified = filemtime($_SERVER['DOCUMENT_ROOT'] . "/img/0.jpg");
         if ($lastModified != $newModified) {
             echo $newModified;
         }
     }
-
+    
     /**
-     * Gets user input coordinates from database
-     * Echos error code 500 if it fails.
-     *
-     * @return void
-     */
+    * Gets user input coordinates from database
+    * Echos error code 500 if it fails.
+    *
+    * @return void
+    */
     public function getUserCoords()
     {
         try {

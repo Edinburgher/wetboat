@@ -90,6 +90,8 @@ $(document).ready(function () {
                                                 $("#airpressure").html(y[3] = parseFloat(measurement["pressure_air"]));
                                                 $("#airhumidity").html(y[4] = parseFloat(measurement["humidity_air"]));
 
+                                                // for loop only until length-1 because last one is reerved for mini view at the bottom of the chart for navigation
+                                                // i + 2 === series.length so it redraws only on the last one
                                                 for (let i = 0; i < series.length - 1; i++) {
                                                     series[i].addPoint([x.getTime(), y[i]], (i + 2 === series.length), true);
                                                 }
@@ -221,47 +223,48 @@ $(document).ready(function () {
                     type: "datetime"
                 },
 
-                series: [{
-                    name: "Lufttemperatur",
-                    data: points["temperature_air"],
-                    yAxis: "axisTemp",
-                    color: Highcharts.getOptions().colors[5],
-                    tooltip: {
-                        valueSuffix: "°C"
-                    }
-                }, {
-                    name: "Wassertemperatur",
-                    data: points["temperature_water"],
-                    yAxis: "axisTemp",
-                    color: Highcharts.getOptions().colors[5],
-                    tooltip: {
-                        valueSuffix: "°C"
-                    }
-                }, {
-                    name: "Windgeschwindigkeit",
-                    data: points["speed_wind"],
-                    yAxis: "axisSpeed",
-                    color: Highcharts.getOptions().colors[0],
-                    tooltip: {
-                        valueSuffix: "km/h"
-                    }
-                }, {
-                    name: "Luftdruck",
-                    data: points["pressure_air"],
-                    yAxis: "axisPressure",
-                    color: Highcharts.getOptions().colors[4],
-                    tooltip: {
-                        valueSuffix: "hPa"
-                    }
-                }, {
-                    name: "Luftfeuchtigkeit",
-                    data: points["humidity_air"],
-                    yAxis: "axisPercent",
-                    color: Highcharts.getOptions().colors[6],
-                    tooltip: {
-                        valueSuffix: "%"
-                    }
-                }]
+                series: [
+                    {
+                        name: "Lufttemperatur",
+                        data: points["temperature_air"],
+                        yAxis: "axisTemp",
+                        color: Highcharts.getOptions().colors[5],
+                        tooltip: {
+                            valueSuffix: "°C"
+                        }
+                    }, {
+                        name: "Wassertemperatur",
+                        data: points["temperature_water"],
+                        yAxis: "axisTemp",
+                        color: Highcharts.getOptions().colors[5],
+                        tooltip: {
+                            valueSuffix: "°C"
+                        }
+                    }, {
+                        name: "Windgeschwindigkeit",
+                        data: points["speed_wind"],
+                        yAxis: "axisSpeed",
+                        color: Highcharts.getOptions().colors[0],
+                        tooltip: {
+                            valueSuffix: "km/h"
+                        }
+                    }, {
+                        name: "Luftdruck",
+                        data: points["pressure_air"],
+                        yAxis: "axisPressure",
+                        color: Highcharts.getOptions().colors[4],
+                        tooltip: {
+                            valueSuffix: "hPa"
+                        }
+                    }, {
+                        name: "Luftfeuchtigkeit",
+                        data: points["humidity_air"],
+                        yAxis: "axisPercent",
+                        color: Highcharts.getOptions().colors[6],
+                        tooltip: {
+                            valueSuffix: "%"
+                        }
+                    }]
             });
 
             function enableLabels(enable) {

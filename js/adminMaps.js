@@ -20,6 +20,23 @@ function myMap() {
             });
         };
 
+                google.maps.Polyline.prototype.splineAndSetPath = function (path) {
+            const arr = (Array.isArray(path)) ? (path) : (path.getArray());
+            this.setPath(bspline(arr));
+        };
+
+        google.maps.Polyline.prototype.changePath = function (path) {
+            //http://stackoverflow.com/questions/4775722/check-if-object-is-array
+            google.maps.event.clearInstanceListeners(this.getPath());
+            this.setPath(path);
+            google.maps.event.addListener(this.getPath(), "set_at", function () {
+                courseBoat.splineAndSetPath(this);
+            });
+            google.maps.event.addListener(this.getPath(), "insert_at", function () {
+                courseBoat.splineAndSetPath(this);
+            });
+        };
+
         const polygonPointsSplined = bspline(polygonPoints);
 
         //DEBUG

@@ -225,7 +225,7 @@ class MysqliDb
      */
     public function __construct()
     {
-        require $_SERVER["DOCUMENT_ROOT"] . '/php/config.php';
+        require 'config.php';
         $isSubQuery = false;
 
         // if params were passed as array

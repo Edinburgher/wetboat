@@ -1,5 +1,5 @@
 <?php
-//Userdata to connect to MySQL server
+// User data to connect to MySQL server
 $host = "YOUR_HOST";
 $username = "YOUR_USERNAME";
 $password = "YOUR_PASSWORD";

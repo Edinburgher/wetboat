@@ -7,7 +7,7 @@
 */
 
 require_once 'MysqliDb.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+require_once '../vendor/autoload.php';
 use Respect\Validation\Validator as v;
 
 class UserAction
@@ -304,7 +304,7 @@ class UserAction
         session_start();
         session_destroy();
         echo "Abmeldung erfolgreich";
-        header("Location: /");
+        header("Location: ../");
     }
     
     /**

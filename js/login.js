@@ -8,7 +8,7 @@ $(document).ready(function () {
         userAction({
             data: f.serialize() + "&action=login",
             success: function () {
-                window.location.href = "/admin.php";
+                window.location.href = "admin.php";
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 $("#errorMessage").fadeIn().removeClass("hidden")

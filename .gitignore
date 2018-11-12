@@ -6,7 +6,6 @@ maps.html
 !.htaccess
 /yt
 /vendor
-/composer.lock
 /packages/google.maps.d.ts.1.0.10
 /typings
 /WebEssentials2015-Settings.json
@@ -24,3 +23,4 @@ img/2.png
 img/3.png
 img/cmd.png
 img/tobic.jpg
+composer.phar

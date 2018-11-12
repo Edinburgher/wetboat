@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="">
+            <a class="navbar-brand" href="index.php">
                 <img alt="Brand" src="img/Logo_website_new.png" />
             </a>
         </div>
@@ -20,7 +20,7 @@
                         echo " class='active'";
                     }
                     ?>>
-                    <a href="">Home</a>
+                    <a href="index.php">Home</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

@@ -11,12 +11,12 @@ You can find the implementation of the website [here](http://www.wetboat.at).
 
 # What you need
 To run it you need [XAMPP](https://www.apachefriends.org/download.html) or any other webserver with MySQL and PHP.  
-You also need the [respect:validation](https://github.com/Respect/Validation/blob/master/docs/INSTALL.md) library (install via composer)
+You also need the [respect:validation](https://github.com/Respect/Validation) library (install via composer)
 
 # Usage
 ## Method using XAMPP
 Put all the files into (assuming Windows) C:\xampp\htdocs\wetboat and in XAMPP start the Apache and MySQL server.  
-Go to [phpmyadmin](http://localhost/phpmyadmin/) -> SQL and copy and paste [wetboat.sql](wetboat/wetboat.sql) and click OK.  
+Go to [phpmyadmin](http://localhost/phpmyadmin/) -> SQL and copy and paste [wetboat.sql](wetboat.sql) and click OK.  
 After that, go to [localhost/wetboat](http://localhost/wetboat) and you should see index.php.  
 Log in (top right) with:  
 * Username: admin
